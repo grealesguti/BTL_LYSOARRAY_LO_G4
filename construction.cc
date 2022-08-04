@@ -232,7 +232,18 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
         rotTrap.rotateY(M_PI*rad);
         G4Transform3D transformTrap(rotTrap, positionTrap);
         solidLYSO = new G4UnionSolid("solidLYSO", trapLYSO, trapLYSO, transformTrap);
-    solidGlue = new G4Box("solidGlue", RESIN_W*mm+0.2*mm*G4UniformRand(), LYSO_thick*mm+0.194*mm+0.2*mm*G4UniformRand(), GLUE_L*mm);
+                        /*vertices[0].set(-LYSO_thick ,-LYSO_thick );
+                        vertices[1].set(-LYSO_thick ,+LYSO_thick );
+                        vertices[2].set(LYSO_thick ,+LYSO_thick );
+                        vertices[3].set(LYSO_thick ,-LYSO_thick );
+                        vertices[4].set(-LYSO_thick ,-LYSO_thick );
+                        vertices[5].set(-LYSO_thick ,+LYSO_thick );
+                        vertices[6].set(LYSO_thick ,+LYSO_thick );
+                        vertices[7].set(LYSO_thick ,-LYSO_thick );
+                        GenLYSO = new G4GenericTrap("GenLYSO",LYSO_L/2*mm,vertices   );    //point 0 is connected with points 3,4,6   )    
+        solidLYSO = new G4UnionSolid("solidLYSO", GenLYSO, GenLYSO, transformTrap);*/
+
+        solidGlue = new G4Box("solidGlue", RESIN_W*mm+0.2*mm*G4UniformRand(), LYSO_thick*mm+0.194*mm+0.2*mm*G4UniformRand(), GLUE_L*mm);
     }
     else if (GeomConfig==2)
     {
@@ -278,9 +289,9 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
                     Theta0=DTheta*(j-1);   
                     Theta1=DTheta*j;          
                     vertices[3].set(cos(Theta0)*xS[j] ,sin(Theta0)*xS[j] );
-                    vertices[4].set(cos(Theta1)*xS[j+1],sin(Theta1)*xS[j+1]);
+                    vertices[2].set(cos(Theta1)*xS[j+1],sin(Theta1)*xS[j+1]);
                     vertices[7].set(cos(Theta0)*xS[j+Onode*2-2],sin(Theta0)*xS[j+Onode*2-2]);
-                    vertices[8].set(cos(Theta1)*xS[j+1+Onode*2-2],sin(Theta1)*xS[j+1+Onode*2-2]);
+                    vertices[6].set(cos(Theta1)*xS[j+1+Onode*2-2],sin(Theta1)*xS[j+1+Onode*2-2]);
 
                     GenLYSO = new G4GenericTrap("genLYSO",LYSO_L/Znode*mm,vertices   );    //point 0 is connected with points 3,4,6   )
 
@@ -288,10 +299,10 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
                         Theta0=DTheta*(j-1-1);   
                         Theta1=DTheta*(j-1);   
                         vertices[3].set(cos(Theta0)*xS[j-1] ,sin(Theta0)*xS[j-1] );
-                        vertices[4].set(cos(Theta1)*xS[j-1+1],sin(Theta1)*xS[j-1+1]);
+                        vertices[2].set(cos(Theta1)*xS[j-1+1],sin(Theta1)*xS[j-1+1]);
                         vertices[7].set(cos(Theta0)*xS[j-1+Onode*2-2],sin(Theta0)*xS[j-1+Onode*2-2]);
-                        vertices[8].set(cos(Theta1)*xS[j-1+1+Onode*2-2],sin(Theta1)*xS[j-1+1+Onode*2-2]);
-                        GenLYSO = new G4GenericTrap("genLYSO",LYSO_L/Znode*mm,vertices   );    //point 0 is connected with points 3,4,6   )
+                        vertices[6].set(cos(Theta1)*xS[j-1+1+Onode*2-2],sin(Theta1)*xS[j-1+1+Onode*2-2]);
+                        GenLYSO = new G4GenericTrap("solidLYSO",LYSO_L/Znode*mm,vertices   );    //point 0 is connected with points 3,4,6   )
       
                         G4ThreeVector positionTrap(0., 0., 0.);// translate 1/4L in -Z, already set in Z trap
                         G4RotationMatrix rotTrap  = G4RotationMatrix();// rotar 180 en Y
