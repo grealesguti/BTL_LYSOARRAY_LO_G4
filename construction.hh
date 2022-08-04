@@ -21,8 +21,20 @@
 #include "G4Trap.hh"
 #include "G4UnionSolid.hh"
 #include "G4Args.hh"
+#include "G4GenericTrap.hh"
+#include "G4TwoVector.hh"
+#include "G4ThreeVector.hh"
+#include "G4ExtrudedSolid.hh"
+#include "G4Polyhedra.hh"
+#include "G4TessellatedSolid.hh"
+#include "G4TriangularFacet.hh"
+#include "G4QuadrangularFacet.hh"
 
 #include "detector.hh"
+#include <iostream>
+#include <vector>
+#include <cmath>
+#include <math.h>
 
 class MyDetectorConstruction : public G4VUserDetectorConstruction
 {
@@ -51,16 +63,19 @@ private: // it is not accessed from outside
     // Default Values
     G4int nCols, nRows, GeomConfig, ESRtrue;
     G4double LYSO_L, LYSO_YIELD, LYSO_SCALERESOLUTION, Vovcon, LYSO_thick, perincr;
-   G4double GLUE_L, RESIN_L, XposTol, YposTol,XposTol2, YposTol2, XYTol, LYSO_SC1, LYSO_RT1, RESIN_W, RESIN_LNOM, RESIN_LTol;
-    
+   G4double GLUE_L, RESIN_L, XposTol, YposTol,XposTol2, YposTol2, XYTol, LYSO_SC1, LYSO_RT1, RESIN_W, RESIN_LNOM, RESIN_LTol, Theta0, Theta1;
+    //vertices[1].set(0.,0.);vertices[2].set(0.,0.);vertices[5].set(0.,0.);vertices[6].set(0.,0.);
+
     // Messengers
     G4GenericMessenger *fMessenger,*fMessenger_thick, *fMessenger_SR, *fMessenger_YIELD, *fMessenger_vov, *fMessenger_GlueL, *fMessenger_ResinL, *fMessenger_ResinW, *fMessenger_XPos, *fMessenger_YPos, *fMessenger_GC, *fMessenger_pi, *fMessenger_ESR, *fMessenger_SR1, *fMessenger_RT1, *fMessenger_XPos2, *fMessenger_YPos2;
 
     // Geometry
     G4Box *solidWorld, *solidDetector, *solidGlue, *solidResin, *solidFR4;
-    G4UnionSolid *solidLYSO;
+    G4UnionSolid *solidLYSO, *sectionLYSO, *halfLYSO;
 
-    G4SubtractionSolid *Resin_Sub, *LYSOCover_Sub;
+    G4SubtractionSolid *Resin_Sub, *LYSOCover_Sub;    
+
+    G4GenericTrap  *GenLYSO, *GenLYSO0;
 
     G4UnionSolid *LYSOAll_Add;
 
