@@ -97,7 +97,7 @@ if (PassArgs->GetTree_Detected() == 1){
             }
             if(PassArgs->GetTimeTrue()==1){PassArgs->AddPhotTiming(posPhoton[2]/mm , timeG/ps);}
         } else if (PassArgs->GetGeomConfig()==3){PassArgs->AddCT();
-        } else if (PassArgs->GetGeomConfig()==1){
+        } else if (PassArgs->GetGeomConfig()==1 || PassArgs->GetGeomConfig()==5 || PassArgs->GetGeomConfig()==6){
             PassArgs->AddLO();
             if(posPhoton[2]/mm>0){
                 PassArgs->AddPhotR();

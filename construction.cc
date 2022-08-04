@@ -212,7 +212,7 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
     G4double FR4_L =0.8/2.*mm;     //FR4_L=FR4_L/2.;
     G4double DET_T =3.;DET_T=DET_T/2.;
     G4int Onode=5; G4int Znode=3;
-    G4double xv0[5*4];
+    G4double xv0[10];
     G4double xS[16];
 
     G4int nsect = 8;
@@ -271,14 +271,14 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
 
         G4double Pi=atan(1)*4;
         G4double DTheta=Pi/(Onode*2-2);
-
+    G4cout<<"Start GeomConfig 5"<<G4endl;
         for(int i = 0; i < Znode+1; i++){
             for (int j = 1; j < Onode+1; j++){
                 if(j==1 || j==3 || j==5){xv0[i*Onode+j]=LYSO_thick;}
                 else{xv0[i*Onode+j]=pow(2*pow(LYSO_thick,2),0.5);}
             }
         }
-
+    G4cout<<"Done xv0"<<G4endl;
         for(int i = 0; i < Znode; i++){
                 for (int j = 1; j < Onode+1; j++){
                         xS[j]=xv0[i*Onode+j];xS[j+(Onode*2-2)/2]=xv0[(i+1)*Onode+j];
@@ -292,8 +292,14 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
                     vertices[2].set(cos(Theta1)*xS[j+1],sin(Theta1)*xS[j+1]);
                     vertices[7].set(cos(Theta0)*xS[j+Onode*2-2],sin(Theta0)*xS[j+Onode*2-2]);
                     vertices[6].set(cos(Theta1)*xS[j+1+Onode*2-2],sin(Theta1)*xS[j+1+Onode*2-2]);
+                G4cout<<"Done vertices"<<G4endl;
 
                     GenLYSO = new G4GenericTrap("genLYSO",LYSO_L/Znode*mm,vertices   );    //point 0 is connected with points 3,4,6   )
+G4cout<<"Done GenLYSO 2"<<G4endl;
+G4cout<<cos(Theta0)*xS[j]<< sin(Theta0)*xS[j] <<G4endl;
+G4cout<<cos(Theta1)*xS[j+1]<<sin(Theta1)*xS[j+1] <<G4endl;
+G4cout<<cos(Theta0)*xS[j+Onode*2-2]<<sin(Theta0)*xS[j+Onode*2-2] <<G4endl;
+G4cout<<cos(Theta1)*xS[j+1+Onode*2-2]<<sin(Theta1)*xS[j+1+Onode*2-2] <<G4endl;
 
                     if(j==2){
                         Theta0=DTheta*(j-1-1);   
@@ -302,8 +308,8 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
                         vertices[2].set(cos(Theta1)*xS[j-1+1],sin(Theta1)*xS[j-1+1]);
                         vertices[7].set(cos(Theta0)*xS[j-1+Onode*2-2],sin(Theta0)*xS[j-1+Onode*2-2]);
                         vertices[6].set(cos(Theta1)*xS[j-1+1+Onode*2-2],sin(Theta1)*xS[j-1+1+Onode*2-2]);
-                        GenLYSO = new G4GenericTrap("solidLYSO",LYSO_L/Znode*mm,vertices   );    //point 0 is connected with points 3,4,6   )
-      
+                        GenLYSO0 = new G4GenericTrap("solidLYSO",LYSO_L/Znode*mm,vertices   );    //point 0 is connected with points 3,4,6   )
+                        G4cout<<"Done GenLYSO 0"<<G4endl;
                         G4ThreeVector positionTrap(0., 0., 0.);// translate 1/4L in -Z, already set in Z trap
                         G4RotationMatrix rotTrap  = G4RotationMatrix();// rotar 180 en Y
                         rotTrap.rotateY(0*rad);
@@ -332,7 +338,68 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
         solidLYSO = new G4UnionSolid("solidLYSO", halfLYSO, halfLYSO, transformTrap);
 
     solidGlue = new G4Box("solidGlue", RESIN_W*mm+0.2*mm*G4UniformRand(), LYSO_thick*mm+0.194*mm+0.2*mm*G4UniformRand(), GLUE_L*mm);
-    }
+    }else if (GeomConfig==6){
+
+        G4double Pi=atan(1)*4;
+        G4double DTheta=Pi/(Onode-1);
+    G4cout<<"Start GeomConfig 6"<<G4endl;
+    G4double xv01[10];
+    G4double xS1[16];
+
+            // xv0 contains the 5x2 radiuses for a LYSO segment
+            for (int j = 0; j < 5; j++){
+            //G4cout<<"xv01 idx "<< j<< " " << Onode+j<< " " << 2*Onode+j <<G4endl;
+                if(j==0 || j==2 || j==4 ){
+                    xv01[j]=LYSO_thick;
+                    xv01[Onode+j]=LYSO_thick;
+                }
+                else if( j==1 || j== 3){
+                    xv01[j]=pow(2*pow(LYSO_thick,2),0.5);
+                    xv01[Onode+j]=pow(2*pow(LYSO_thick,2),0.5);
+                }
+                
+            }
+
+            // xS transforms xv0 to contain the 16 radiuses of the 2 sections for a LYSO segment
+            for (int j1 = 0; j1 < Onode; j1++){
+                xS1[j1]=xv01[j1];
+                xS1[j1+Onode*2-2]=xv01[j1+Onode];
+            }
+            for (int j = 0; j < 3; j++){
+                xS[j+Onode]=xv0[Onode-j-1];xS[2*Onode-2+Onode]=xv0[2*Onode-j-1];
+            }
+            int j=0;
+            Theta0=DTheta*(j);   
+            Theta1=DTheta*(j+1);     
+            vertices[3].set(cos(Theta0)*xS1[j] ,sin(Theta0)*xS1[j] );
+            vertices[2].set(cos(Theta1)*xS1[j+1],sin(Theta1)*xS1[j+1]);
+            vertices[7].set(cos(Theta0)*xS1[j+Onode*2-2],sin(Theta0)*xS1[j+Onode*2-2]);
+            vertices[6].set(cos(Theta1)*xS1[j+1+Onode*2-2],sin(Theta1)*xS1[j+1+Onode*2-2]);
+            GenLYSO = new G4GenericTrap("genLYSO",LYSO_L/Znode*mm,vertices   );    //point 0 is connected
+            G4ThreeVector positionTrap(0., 0., LYSO_L*mm);// translate 1/4L in -Z, already set in Z trap
+            G4RotationMatrix rotTrap  = G4RotationMatrix();// rotar 180 en Y
+            rotTrap.rotateY(M_PI*rad);
+            G4Transform3D transformTrap(rotTrap, positionTrap);
+            solidLYSO = new G4UnionSolid("solidLYSO", GenLYSO, GenLYSO, transformTrap);
+    solidGlue = new G4Box("solidGlue", RESIN_W*mm+0.2*mm*G4UniformRand(), LYSO_thick*mm+0.194*mm+0.2*mm*G4UniformRand(), GLUE_L*mm);
+/*
+G4cout<<cos(Theta0)<<" "<< sin(Theta0) <<G4endl;
+G4cout<<cos(Theta1)<<" "<<sin(Theta1) <<G4endl;
+G4cout<<cos(Theta0)<<" "<<sin(Theta0) <<G4endl;
+G4cout<<cos(Theta1)<<" "<<sin(Theta1) <<G4endl;
+G4cout<<xS1[j]<<" "<< xS1[j] <<G4endl;
+G4cout<<xS1[j+1]<<" "<<xS1[j+1] <<G4endl;
+G4cout<<xS1[j+Onode*2-2]<<" "<<xS1[j+Onode*2-2] <<G4endl;
+G4cout<<xS1[j+1+Onode*2-2]<<" "<<xS1[j+1+Onode*2-2] <<G4endl;
+
+G4cout<<cos(Theta0)*xS1[j]<<" "<< sin(Theta0)*xS1[j] <<G4endl;
+G4cout<<cos(Theta1)*xS1[j+1]<<" "<<sin(Theta1)*xS1[j+1] <<G4endl;
+G4cout<<cos(Theta0)*xS1[j+Onode*2-2]<<" "<<sin(Theta0)*xS1[j+Onode*2-2] <<G4endl;
+G4cout<<cos(Theta1)*xS1[j+1+Onode*2-2]<<" "<<sin(Theta1)*xS1[j+1+Onode*2-2] <<G4endl;*/
+
+
+    G4cout<<"End GeomConfig 6"<<G4endl;
+}
 
 
 
@@ -347,7 +414,7 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
     //G4Transform3D tr1 = G4Transform3D(rotm,position1);
     G4Box* box = new G4Box("Box_1",RESIN_W*mm, RESIN_H*mm, RESIN_L*mm+DET_L);
 G4int nSiPM=16;
-if(GeomConfig==1 || GeomConfig==2 || GeomConfig==5 ){
+if(GeomConfig==1 || GeomConfig==2 || GeomConfig==5 || GeomConfig==6){
     Resin_Sub =new G4SubtractionSolid("Resin_Sub", box, solidDetector, tr);
 } else if (GeomConfig==3){
     tr = G4Translate3D(-RESIN_W+DET_T+0.194*mm, +0.5*mm+DET_T-RESIN_H, RESIN_L*mm) * G4Rotate3D(rotm) ;
@@ -376,7 +443,7 @@ tr = G4Translate3D(-RESIN_W+DET_T+0.194*(i+1)*mm+DET_T*2*i,0.,0.) * G4Rotate3D(r
             }else   {LYSOCover_Sub =new G4SubtractionSolid("LYSOCover_Sub", LYSOCover_Sub, LYSOBox, tr);}
     }
 
-}else if (GeomConfig==5){}
+}
     solidFR4 = new G4Box("solidFR4", RESIN_W*mm, RESIN_H*mm, FR4_L);
 
 
@@ -414,7 +481,7 @@ tr = G4Translate3D(-RESIN_W+DET_T+0.194*(i+1)*mm+DET_T*2*i,0.,0.) * G4Rotate3D(r
 
     physWorld = new G4PVPlacement(0,G4ThreeVector(0.,0.,0.),logicWorld,"physWorld",0,false,0,true);
 
-if(GeomConfig == 1 || GeomConfig==5 ){
+if(GeomConfig == 1 || GeomConfig==5 || GeomConfig==6){
     physLYSO = new G4PVPlacement(0,G4ThreeVector(0.,0.,-LYSO_L/2.*mm),logicLYSO,"physLYSO",logicWorld,false,0,true);       
 
     physGlue1 = new G4PVPlacement(0,G4ThreeVector(0.,0.,+1*(+LYSO_L*mm+GLUE_L*mm)),logicGlue,"physGlue1",logicWorld,false,0,true); 
@@ -477,7 +544,7 @@ physFR42 = new G4PVPlacement(rM,G4ThreeVector(XposTol*mm,YposTol*mm+(RESIN_H-0.5
 //////////////////////
 // BORDER SURFACE //
 //////////////////////
-if( GeomConfig==1 || GeomConfig==3 || GeomConfig==5){
+if( GeomConfig==1 || GeomConfig==3 || GeomConfig==5 || GeomConfig==6){
     if(ESRtrue==1){
     G4LogicalBorderSurface *LYSO_Air_Border = new G4LogicalBorderSurface("LYSO_Glue_Border",physLYSO,physWorld,mirrorSurface);   
     }

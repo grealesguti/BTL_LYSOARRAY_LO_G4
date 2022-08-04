@@ -56,7 +56,7 @@ if(PassArgs->GetRnd_Part()==1)
     LYSO_T2=LYSO_T2-LYSO_T2*0.01;
 
     //G4cout<< "Data from construction: "<< LYSO_L << " " << LYSO_T << " " << GeomConfig << G4endl;
-    if (GeomConfig == 1){
+    if (GeomConfig == 1 || GeomConfig == 5){
         G4double GenX=(-LYSO_T+LYSO_T*2*G4UniformRand())/1000.;
         G4double GenZ=(-LYSO_L+LYSO_L*2*G4UniformRand())/1000.;
         command = "/gun/position "+std::to_string(GenX)+" 0.05 "+std::to_string(GenZ)+" m"; 
@@ -120,7 +120,7 @@ void MyEventAction::EndOfEventAction(const G4Event*)
     G4int evt = G4RunManager::GetRunManager()->GetCurrentEvent()->GetEventID();
     if(PassArgs->GetEdep()>0){
 
-            if (GeomConfig == 1){
+            if (GeomConfig == 1 || GeomConfig == 5 || GeomConfig == 6){
     G4cout<< "#####################" << G4endl;
     G4cout<< "#####################" << G4endl;
     G4cout<< "Event Nº: " << evt << G4endl;
