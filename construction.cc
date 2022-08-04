@@ -380,7 +380,7 @@ G4cout<<cos(Theta1)*xS[j+1+Onode*2-2]<<sin(Theta1)*xS[j+1+Onode*2-2] <<G4endl;
             }
 
             // Section composed of 8 pyramids
-            for (int j = 0; j < 7; j++){
+            for (int j = 0; j < 8; j++){
                 Theta0=DTheta*(j)-Pi/2;   
                 Theta1=DTheta*(j+1)-Pi/2;     
                 G4cout<<"Angles: "<<Theta0<<" "<<Theta1<<G4endl;
@@ -418,21 +418,21 @@ G4cout<<cos(Theta1)*xS[j+1+Onode*2-2]<<sin(Theta1)*xS[j+1+Onode*2-2] <<G4endl;
                     Theta0=DTheta*(j)-Pi/2;   
                     Theta1=DTheta*(0)-Pi/2;     
                     G4cout<<"Angles: "<<Theta0<<" "<<Theta1<<G4endl;
-                    vertices[2].set(cos(Theta0)*xS1[j] ,sin(Theta0)*xS1[j] );
-                    vertices[3].set(cos(Theta1)*xS1[0],sin(Theta1)*xS1[0]);
-                    vertices[6].set(cos(Theta0)*xS1[j+Onode*2-2],sin(Theta0)*xS1[j+Onode*2-2]);
-                    vertices[7].set(cos(Theta1)*xS1[0+Onode*2-2],sin(Theta1)*xS1[0+Onode*2-2]);
+                    vertices[3].set(cos(Theta0)*xS1[j] ,sin(Theta0)*xS1[j] );
+                    vertices[2].set(cos(Theta1)*xS1[0],sin(Theta1)*xS1[0]);
+                    vertices[7].set(cos(Theta0)*xS1[j+Onode*2-2],sin(Theta0)*xS1[j+Onode*2-2]);
+                    vertices[6].set(cos(Theta1)*xS1[0+Onode*2-2],sin(Theta1)*xS1[0+Onode*2-2]);
+                    GenLYSO = new G4GenericTrap("genLYSO",LYSO_L/Znode*mm,vertices   );    //point 0 is connected
                     G4cout<<"Vertices: "<<G4endl;
                     G4cout<<cos(Theta0)*xS1[j]<<" "<< sin(Theta0)*xS1[j] <<G4endl;
-                    G4cout<<cos(Theta1)*xS1[0]<<" "<<sin(Theta1)*xS1[j+1] <<G4endl;
+                    G4cout<<cos(Theta1)*xS1[0]<<" "<<sin(Theta1)*xS1[0] <<G4endl;
                     G4cout<<cos(Theta0)*xS1[j+Onode*2-2]<<" "<<sin(Theta0)*xS1[j+Onode*2-2] <<G4endl;
                     G4cout<<cos(Theta1)*xS1[0+Onode*2-2]<<" "<<sin(Theta1)*xS1[0+Onode*2-2] <<G4endl;
-                    GenLYSO0 = new G4GenericTrap("genLYSO",LYSO_L/Znode*mm,vertices   );    //point 0 is connected
                     G4ThreeVector positionTrap(0., 0., 0.);// translate 1/4L in -Z, already set in Z trap
                     G4RotationMatrix rotTrap  = G4RotationMatrix();// rotar 180 en Y
                     rotTrap.rotateY(0);
                     G4Transform3D transformTrap(rotTrap, positionTrap);
-                    sectionLYSO = new G4UnionSolid("sectionLYSO", GenLYSO, GenLYSO0, transformTrap);
+                    sectionLYSO = new G4UnionSolid("sectionLYSO", sectionLYSO, GenLYSO, transformTrap);
                 }else{
                     G4ThreeVector positionTrap(0., 0., 0.);// translate 1/4L in -Z, already set in Z trap
                     G4RotationMatrix rotTrap  = G4RotationMatrix();// rotar 180 en Y
