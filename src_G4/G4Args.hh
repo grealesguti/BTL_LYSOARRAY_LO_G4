@@ -137,6 +137,9 @@ public:
     void FillStdTim(G4int);
     void FillStdLO(G4int);
     void DefaultRadiusVect();
+    void FillMedian(G4int);
+    void FillIQR(G4int);
+
     void SetRadiusVect(G4double*, G4int, G4int);
     G4double GetLOAvg(G4int runid) const {return nRuntLOAvg[runid];}  
     G4double GetLOStd(G4int runid) const {return nRuntLOStd[runid];}  
@@ -185,7 +188,7 @@ private:
     G4double KillLTime=200;
     G4int KillLTTrue=0;
     G4int nEvents=0;
-    G4double *nEventTiming, *nEventLO, *nEventLD, *nRunTimingAvg, *nRuntLOAvg, *nRuntLDAvg, *nRunTimingStd, *nRuntLOStd, *nRuntLDStd, *nGunPosX, *nGunPosY, *xv, *yv, *yincr, *yvincr;        
+    G4double *nEventTiming, *nEventLO, *nEventLD, *nRunTimingAvg, *nRuntLOAvg, *nRuntLDAvg, *nRunTimingStd, *nRuntLOStd, *nRuntLDStd, *nGunPosX, *nGunPosY, *xv, *yv, *yincr, *yvincr, *nRuntLDMed,*nRuntLOMed ;        
     G4int *nEdepEvts;
     G4double incr=0;
     G4double incrS=0;
@@ -238,7 +241,7 @@ private:
     int Zelem=10;
     int NoYSym=0;
     G4int FR4refl=0;
-    G4int SaveMeshVal=0
+    G4int SaveMeshVal=0;
     
     G4double PartDir[3];
     G4double PartDisplX=0;

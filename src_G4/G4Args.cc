@@ -206,7 +206,7 @@ MyG4Args :: MyG4Args(int mainargc,char** mainargv)
                     G4cout<< " ### No timing calculation performed" <<G4endl;    
                 }else if(strcmp(mainargv[j],"-SaveMesh")==0)
                 {   
-                    SaveMesh = 1;
+                    SaveMeshVal = 1;
                     G4cout<< " ### Save Mesh to STL" <<G4endl;   
                 }else if(strcmp(mainargv[j],"-KillLT")==0)
                 {   
