@@ -1,5 +1,7 @@
 #include "G4Args.hh"
 #include <unistd.h> /* for exit() */
+#include <algorithm> // For std::nth_element
+#include <vector>    // For std::vector
 
 
 MyG4Args :: MyG4Args(int mainargc,char** mainargv)
@@ -201,7 +203,11 @@ MyG4Args :: MyG4Args(int mainargc,char** mainargv)
                 }else if(strcmp(mainargv[j],"-noTiming")==0)
                 {   
                     TimeTrue = 0;
-                    G4cout<< " ### No timing calculation performed" <<G4endl;         
+                    G4cout<< " ### No timing calculation performed" <<G4endl;    
+                }else if(strcmp(mainargv[j],"-SaveMesh")==0)
+                {   
+                    SaveMesh = 1;
+                    G4cout<< " ### Save Mesh to STL" <<G4endl;   
                 }else if(strcmp(mainargv[j],"-KillLT")==0)
                 {   
                     KillLTTrue = 1;KillLTime = atof(mainargv[j+1]);j=j+1;
@@ -595,6 +601,50 @@ void MyG4Args :: FillAvgLO(G4int runid) {
     nRuntLDAvg[runid]=nRuntLDAvg[runid]/cnt;
     nEdepEvts[runid]=cnt;
 }               
+
+void MyG4Args::FillMedian(G4int runid) {
+    nRuntLOAvg[runid] = 0.0;
+    nRuntLDAvg[runid] = 0.0;
+    G4int cnt = 0;
+    std::vector<G4int> nonZeroEventLO;
+    std::vector<G4int> nonZeroEventLD;
+
+    for (int j = 1; j < nEvents; j = j + 1) {
+        if (nEventLO[j] > 0) {
+            cnt += 1;
+            nonZeroEventLO.push_back(nEventLO[j]);
+            nonZeroEventLD.push_back(nEventLD[j]);
+        }
+    }
+
+	std::nth_element(nonZeroEventLO.begin(), nonZeroEventLO.begin() + cnt / 2, nonZeroEventLO.end());
+	std::nth_element(nonZeroEventLD.begin(), nonZeroEventLD.begin() + cnt / 2, nonZeroEventLD.end());
+
+	nRuntLOMed[runid] = nonZeroEventLO[cnt / 2];
+	nRuntLDMed[runid] = nonZeroEventLD[cnt / 2];
+}
+
+void MyG4Args::FillIQR(G4int runid) {
+    nRuntLOAvg[runid] = 0.0;
+    nRuntLDAvg[runid] = 0.0;
+    G4int cnt = 0;
+    std::vector<G4int> nonZeroEventLO;
+    std::vector<G4int> nonZeroEventLD;
+
+    for (int j = 1; j < nEvents; j = j + 1) {
+        if (nEventLO[j] > 0) {
+            cnt += 1;
+            nonZeroEventLO.push_back(nEventLO[j]);
+            nonZeroEventLD.push_back(nEventLD[j]);
+        }
+    }
+
+	std::nth_element(nonZeroEventLO.begin(), nonZeroEventLO.begin() + cnt / 2, nonZeroEventLO.end());
+	std::nth_element(nonZeroEventLD.begin(), nonZeroEventLD.begin() + cnt / 2, nonZeroEventLD.end());
+
+	nRuntLOMed[runid] = nonZeroEventLO[cnt / 2];
+	nRuntLDMed[runid] = nonZeroEventLD[cnt / 2];
+}
 
 void MyG4Args :: FillStdTim(G4int runid){
 

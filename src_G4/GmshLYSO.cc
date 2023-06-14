@@ -127,8 +127,16 @@ if (LocalArgs->GetSpline()==1){
 gmsh::model::geo::mesh::setTransfiniteCurve(splp,nsecmesh*2+1);
 gmsh::model::geo::mesh::setTransfiniteCurve(splm,nsecmesh*2+1);
 }
-gmsh::model::geo::synchronize();
-gmsh::model::mesh::generate(3);
+// Export mesh to STL if MainArgs->GetMesh() is 1
+if (MainArgs->SaveMesh() == 1) {
+    std::string stlFilename = "mesh.stl";
+    gmsh::write(stlFilename);
+    G4cout <<"### Saved STL:" << G4endl;
+}
+
+// Save mesh in STL format
+std::string stlFilename = "LYSOmesh.stl";
+gmsh::write(stlFilename);
 
 // Getting nodal information
 
