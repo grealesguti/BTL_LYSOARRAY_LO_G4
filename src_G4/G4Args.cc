@@ -477,7 +477,10 @@ G4cout<< " * imax: "<< imax<< " jmax: "<< jmax <<G4endl;
                         G4cout<< " ### WARNING: -Ypos with no Znode input" <<G4endl;     
                     }
                         
-                }
+                }else if(strcmp(mainargv[j],"-G4Sipm")==0){   
+                    RealSipm=1;
+                    G4cout<< " ### Realistic Sipm "<<G4endl; 
+		}
         }
         
     if (Ystr==1 && NoYSym==0){

@@ -57,7 +57,7 @@ int main(int argc, char** argv) /* argc, argv are the argument passed to the sim
 
 
     //G4simulationNOVIS *sim1 = new G4simulationNOVIS(runManager,argc, argv, Onode, Znode, radinit);
-    //G4simulation *sim = new G4simulation(argc, argv);
+   // G4simulation *sim = new G4simulation(argc, argv);
     // Example on how to pass always the same arguments
 /*
     G4int argc1=3;
