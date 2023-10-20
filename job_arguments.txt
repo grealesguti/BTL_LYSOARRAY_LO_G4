@@ -1,0 +1,90 @@
+len=28.5 szloc=0.1
+len=28.5 szloc=0.2
+len=28.5 szloc=0.3
+len=28.5 szloc=0.4
+len=28.5 szloc=0.5
+len=28.5 szloc=0.6
+len=28.5 szloc=0.7
+len=28.5 szloc=0.8
+len=28.5 szloc=0.9
+
+len=25.9 szloc=0.1
+len=25.9 szloc=0.2
+len=25.9 szloc=0.3
+len=25.9 szloc=0.4
+len=25.9 szloc=0.5
+len=25.9 szloc=0.6
+len=25.9 szloc=0.7
+len=25.9 szloc=0.8
+len=25.9 szloc=0.9
+
+len=23.3 szloc=0.1
+len=23.3 szloc=0.2
+len=23.3 szloc=0.3
+len=23.3 szloc=0.4
+len=23.3 szloc=0.5
+len=23.3 szloc=0.6
+len=23.3 szloc=0.7
+len=23.3 szloc=0.8
+len=23.3 szloc=0.9
+
+len=20.7 szloc=0.1
+len=20.7 szloc=0.2
+len=20.7 szloc=0.3
+len=20.7 szloc=0.4
+len=20.7 szloc=0.5
+len=20.7 szloc=0.6
+len=20.7 szloc=0.7
+len=20.7 szloc=0.8
+len=20.7 szloc=0.9
+
+len=18.1 szloc=0.1
+len=18.1 szloc=0.2
+len=18.1 szloc=0.3
+len=18.1 szloc=0.4
+len=18.1 szloc=0.5
+len=18.1 szloc=0.6
+len=18.1 szloc=0.7
+len=18.1 szloc=0.8
+len=18.1 szloc=0.9
+
+len=15.5 szloc=0.1
+len=15.5 szloc=0.2
+len=15.5 szloc=0.3
+len=15.5 szloc=0.4
+len=15.5 szloc=0.5
+len=15.5 szloc=0.6
+len=15.5 szloc=0.7
+len=15.5 szloc=0.8
+len=15.5 szloc=0.9
+
+len=12.9 szloc=0.1
+len=12.9 szloc=0.2
+len=12.9 szloc=0.3
+len=12.9 szloc=0.4
+len=12.9 szloc=0.5
+len=12.9 szloc=0.6
+len=12.9 szloc=0.7
+len=12.9 szloc=0.8
+len=12.9 szloc=0.9
+
+len=10.3 szloc=0.1
+len=10.3 szloc=0.2
+len=10.3 szloc=0.3
+len=10.3 szloc=0.4
+len=10.3 szloc=0.5
+len=10.3 szloc=0.6
+len=10.3 szloc=0.7
+len=10.3 szloc=0.8
+len=10.3 szloc=0.9
+
+len=7.7 szloc=0.1
+len=7.7 szloc=0.2
+len=7.7 szloc=0.3
+len=7.7 szloc=0.4
+len=7.7 szloc=0.5
+len=7.7 szloc=0.6
+len=7.7 szloc=0.7
+len=7.7 szloc=0.8
+len=7.7 szloc=0.9
+
