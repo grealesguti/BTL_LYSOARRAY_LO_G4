@@ -425,27 +425,12 @@ MyG4Args :: MyG4Args(int mainargc,char** mainargv)
                         
                 }else if(strcmp(mainargv[j],"-gunmesh")==0)
                 {   
-                        int index;
-                        int imax=atoi(mainargv[j+1]);j=j+1;
-                        int jmax=atoi(mainargv[j+1]);j=j+1;
-G4cout<< " * imax: "<< imax<< " jmax: "<< jmax <<G4endl;       
-                    // Random values & particle gun
-                        RndGen[0] = 0;
-                        RndGen[1] = 2;
-                        RndGen[2] = 0;
-                        G4cout<< " ### Random Particle Position set to  : " << RndGen[1] <<G4endl;         
-                        G4cout<< " ### Random Geometry Parameters set to  : " << RndGen[2]<<G4endl;    
-
-                        nGunPosX = new G4double[imax*jmax];
-                        nGunPosY = new G4double[imax*jmax];
-                    for (int i = 0; i < imax; i++){
-                        for (int j = 0; j < jmax; j++){
-                            index = i*jmax+j;
-                            nGunPosX[index]=(Geom_LYSO[0]-0.01)/imax*(i)+0.01;
-                            nGunPosY[index]=(Geom_LYSO[2]-0.01)/jmax*(j)+0.01;
-                        G4cout<< " * Gun Pos "<< index <<" , XPos  : " << nGunPosX[index]<<" , YPos  : " << nGunPosY[index]<<G4endl;    
-                        }
-                    }     
+						gunmesh = 1;
+                        
+                        imax=atoi(mainargv[j+1]);j=j+1;
+                        jmax=atoi(mainargv[j+1]);j=j+1;
+						G4cout<< " * imax: "<< imax<< " jmax: "<< jmax <<G4endl;       
+ 
                 }
                 else if(strcmp(mainargv[j],"-date")==0)
                 {   
@@ -520,6 +505,30 @@ G4cout<< " * imax: "<< imax<< " jmax: "<< jmax <<G4endl;
 	if(AreaCte==1){
 		Geom_LYSO[0]=((57./2.)*3./2.) / Geom_LYSO[2];
 		}
+		
+	if (gunmesh==1){
+					G4cout<< " ### gunmesh setting , LYSO_L "<< Geom_LYSO[0]<<" thickness "<< Geom_LYSO[2] <<G4endl;         
+		                    // Random values & particle gun
+		                    int index;
+                        RndGen[0] = 0;
+                        RndGen[1] = 2;
+                        RndGen[2] = 0;
+                        G4cout<< " ### Random Particle Position set to  : " << RndGen[1] <<G4endl;         
+                        G4cout<< " ### Random Geometry Parameters set to  : " << RndGen[2]<<G4endl;    
+
+                        nGunPosX = new G4double[imax*jmax];
+                        nGunPosY = new G4double[imax*jmax];
+                    for (int i = 0; i < imax; i++){
+                        for (int j = 0; j < jmax; j++){
+                            index = i*jmax+j;
+                            nGunPosX[index]=(Geom_LYSO[0]-0.01)/imax*(i)+0.01;
+                            nGunPosY[index]=(Geom_LYSO[2]-0.01)/jmax*(j)+0.01;
+                        G4cout<< " * Gun Pos "<< index <<" , XPos  : " << nGunPosX[index]<<" , YPos  : " << nGunPosY[index]<<G4endl;    
+                        }
+                    }    
+		
+		}
+		
 		
 	matchSiPMf();
 }

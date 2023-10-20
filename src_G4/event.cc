@@ -193,14 +193,13 @@ if(PassArgs->GetTree_EndOfEvent()==1){
         G4int GeomConfig  = PassArgs->GetGeomConfig();
 
     // Setting limits to the randomizer for the particle gun
-        G4double LYSO_L  = detectorConstruction->GetLYSOL();
+        G4double LYSO_L  = PassArgs->GetGeom_LYSO_L();
         LYSO_L=LYSO_L-LYSO_L*0.01;
-        G4double LYSO_T  = detectorConstruction->GetLYSOT();
+        G4double LYSO_T  = 28.5*1.5/PassArgs->GetGeom_LYSO_L();
         LYSO_T=LYSO_T-LYSO_T*0.01;
-        G4double LYSO_T2  = detectorConstruction->GetLYSOT();
+        G4double LYSO_T2  = PassArgs->GetGeom_LYSO_thick();
         LYSO_T2=LYSO_T2-LYSO_T2*0.01;
-
-        //G4cout<< "Data from construction: "<< LYSO_L << " " << LYSO_T << " " << GeomConfig << G4endl;
+        G4cout<< "Data from construction: "<< LYSO_L << " " << LYSO_T << " " << GeomConfig << G4endl;
 
             G4cout<< "Event GeomConfig: "<< GeomConfig <<" ,PartRnd. "<< PassArgs->GetRnd_Part() << G4endl;
         if (GeomConfig == 1 || GeomConfig == 11){
@@ -354,5 +353,13 @@ if(PassArgs->GetTree_EndOfEvent()==1){
         }
 }
 
+/*
+  // Get the current run object
+  auto run = static_cast<MyRun*>(G4RunManager::GetRunManager()->GetCurrentRun());
+  
+  // Add the value for this event to the vector
+  double valueForThisEvent = ... // calculate the value for this event
+  run->AddEventValue(valueForThisEvent);
+*/
 
 }

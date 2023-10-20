@@ -67,11 +67,15 @@ G4bool MySensitiveDetector::ProcessHits(G4Step *aStep, G4TouchableHistory *ROhis
 
 if (PassArgs->GetTree_Hits() == 1){
     man->FillNtupleIColumn(0, 0,  evt);
-    man->FillNtupleDColumn(0, 1,  posDetector[0]/mm);// D==double
-    man->FillNtupleDColumn(0, 2,  posDetector[1]/mm);
-    man->FillNtupleDColumn(0, 3,  posDetector[2]/mm);
+    man->FillNtupleDColumn(0, 1,  posPhoton[0]/mm);// D==double
+    man->FillNtupleDColumn(0, 2,  posPhoton[1]/mm);
+    man->FillNtupleDColumn(0, 3,  posPhoton[2]/mm);
     man->FillNtupleDColumn(0, 4,  wlen);
     man->FillNtupleDColumn(0, 5,  Tlength/mm);
+				man->FillNtupleDColumn(0, 6,  direction[0]);// D==double
+				man->FillNtupleDColumn(0, 7,  direction[1]);
+				man->FillNtupleDColumn(0, 8,  direction[2]);  
+				man->FillNtupleDColumn(0, 9,  timeL/ps); 
     man->AddNtupleRow(0);
 }
 

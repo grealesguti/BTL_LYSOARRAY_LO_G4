@@ -144,6 +144,7 @@ public:
     void FillEvtLSt(G4int evt, G4double val){nEventLSt[evt]=val;}  
 
     void FillEvtLD(G4int evt, G4double val){nEventLD[evt]=val;}  
+    G4double GetEvtLD(G4int evt) const {return nEventLD[evt];}  
     G4double GetEvtLO(G4int evt) const {return nEventLO[evt];}  
     G4double GetEvtLSt(G4int evt) const {return nEventLSt[evt];}  
 
@@ -301,6 +302,8 @@ private:
     G4double IQRLO = 0;
     G4double IQRLD = 0;
     G4double IQRLSt = 0;
+    G4int gunmesh=0; 
+    int imax=0, jmax=0;
 
 };    
 

@@ -19,11 +19,14 @@ class MyRunAction : public G4UserRunAction
 public:
     MyRunAction(G4String ,MyG4Args*);
     ~MyRunAction();
+	//void Merge(const G4Run* run) override;
 
     virtual void BeginOfRunAction(const G4Run*);
     virtual void EndOfRunAction(const G4Run*);
 private :
     G4String command, OutputName;
+    //std::vector<double> eventValues; // data member to store the values for each event
+
     MyG4Args* PassArgs;
 };
 

@@ -23,7 +23,11 @@ MyRunAction :: MyRunAction(G4String OutName,MyG4Args* MainArgs)
             man->CreateNtupleDColumn("fZ");
             man->CreateNtupleDColumn("fWlen");
             man->CreateNtupleDColumn("fMeanPath");
-            man->FinishNtuple(0); // Finish our first tuple or Ntuple number 0
+            man->CreateNtupleDColumn("fdirX");
+            man->CreateNtupleDColumn("fdirY");
+            man->CreateNtupleDColumn("fdirZ");
+            man->CreateNtupleDColumn("ftimeL");
+				            man->FinishNtuple(0); // Finish our first tuple or Ntuple number 0
 
         // Tuple containing all data from the Photons being detected
             man->CreateNtuple("Detected","Detected");   // Hits
@@ -100,6 +104,14 @@ MyRunAction :: MyRunAction(G4String OutName,MyG4Args* MainArgs)
             man->CreateNtupleDColumn("fLDIQR");
             man->CreateNtupleDColumn("fLStIQR");
             man->FinishNtuple(5); // Finish our first tuple or Ntuple number 0
+            
+                     // Tuple containing all data fregarding the estimations written to screen at the end of each event
+            man->CreateNtuple("MTEndOfRun","MTEndOfRun");   // Scoring
+            man->CreateNtupleDColumn("fLO"); 
+            man->CreateNtupleDColumn("fLC");
+            man->CreateNtupleDColumn("fLSt");
+            man->CreateNtupleDColumn("fVolume");
+            man->FinishNtuple(6); // Finish our first tuple or Ntuple number 0
         }
 }
 MyRunAction :: ~MyRunAction()
@@ -235,8 +247,21 @@ void MyRunAction::EndOfRunAction(const G4Run* run)
     // Modify random parameter in the geometry 
     //  #### This does nothing unless we do another run, the geometry can only be changed in between runs not events !!!
 
-
-    
+/*
+	G4double LOe,LCe,LSte;
+    for (int j = 1; j < PassArgs->GetnEvents(); j=j+1){
+		LOe=PassArgs->nEventLO(j);
+		LCe=PassArgs->nEventLO(j);
+		SLte=PassArgs->nEventLSt(j);
+        if(LOe){ 
+            man->FillNtupleDColumn(6, 0, LOe);
+            man->FillNtupleDColumn(6, 1, LCe);
+            man->FillNtupleDColumn(6, 2, LSte);
+            man->FillNtupleDColumn(6, 3, PassArgs->GetVolume());
+            man->AddNtupleRow(6);
+        }
+    }
+  */  
     // Close the output file for this event
     G4AnalysisManager *man = G4AnalysisManager::Instance();
     if(PassArgs->GetRootCreate()==1){
@@ -245,3 +270,33 @@ void MyRunAction::EndOfRunAction(const G4Run* run)
     }
 
 }
+
+/*
+   // Get the final run object
+  auto run = static_cast<const MyRun*>(G4RunManager::GetRunManager()->GetNonConstCurrentRun());
+  
+  // Write the vector to the output file
+  WriteVectorToFile(run->GetEventValues());
+  
+ * 
+void MyRun::Merge(const G4Run* run)
+{
+  const MyRun* otherRun = static_cast<const MyRun*>(run);
+  
+  // Merge the vectors
+  eventValues.insert(eventValues.end(), otherRun->eventValues.begin(), otherRun->eventValues.end());
+  
+  G4Run::Merge(run);
+}
+* 
+  void AddEventValue(double value)
+  {
+      eventValues.push_back(value);
+  }
+  
+  const std::vector<double>& GetEventValues() const
+  {
+      return eventValues;
+  }
+
+*/
