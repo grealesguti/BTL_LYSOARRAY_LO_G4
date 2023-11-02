@@ -12,6 +12,7 @@ GmshLYSO :: GmshLYSO(MyG4Args *MainArgs)
 	nodesec=MainArgs->Getnodesec();
 	modelname=MainArgs->GetOutName();
 	YSymm=MainArgs->GetYSymtrue();
+	TileScale=MainArgs->Get_TileScale();
 
 	gmsh::initialize();
 	gmsh::model::add(modelname);
@@ -446,14 +447,46 @@ void GmshLYSO ::MakeTile(){
 	 // Use -nX and -nodesec to set X and Z node counts for 1 quandrant. -Znode <n> tells to program to read n values from Ypos. Default nX=3 nodesec=4 so Znode should be 12.
      // TODO: make the number of sections and nodes an input parameter. (!!!!!!!Done!!!!!!!!) Add as well debugging comments in case Znode is not set properly etc... Do this with G4Args.cc\\.hh where there are example of commands (.cc) and defined values and functions to extract them (.hh) . G4Args is accessible in this class through 'MainArgs->function();'
 	
+	std::vector<double> Y_all; // Define the Y_all vector before the conditional statement
+	std::vector<double> Y_all_middle; // Define the Y_all vector before the conditional statement
 
-    std::vector<double> Y_all; // reading the -Ypos value into a vector rather than an array 
-    for (int i = 0; i < (nodesec)*nX; i++) {
-		Y_all.push_back(ptsY[i]);
-		std::cout<<Y_all[i]<<" "<<ptsY[i]<< " ";
+	if (TileScale== 0) {
+		for (int i = 0; i < (nodesec)*nX; i++) {
+			Y_all.push_back(ptsY[i]);
+			std::cout << Y_all[i] << " " << ptsY[i] << " ";
+		}
+		std::cout << std::endl;
+	} else {
+		double smallestValue = ptsY[0]; // Initialize with the first element
+
+		std::cout << "Scaling points" << std::endl;
+
+		for (int i = 0; i < nodesec; i++) {
+			if (ptsY[i] < smallestValue) {
+				smallestValue = ptsY[i];
+			}
+		}
+
+		std::cout << "Min value: " << smallestValue << std::endl;
+
+		double anglemax = std::atan(smallestValue / (Xtot / 2));
+		std::cout << "Max angle: " << anglemax << std::endl;
+
+		for (int i = 0; i < nodesec; i++) {
+			
+			double scaledValue = ptsY[i] - std::tan(anglemax * TileScale) * (Xtot / 2 / 1.5);
+			Y_all.push_back(scaledValue);
+			std::cout << "Scaled points: " << Y_all[i] << " " << scaledValue << " dist. "<< (Xtot / 2 / 1.5) <<std::endl;
+		}
+
+		for (int i = 0; i < nodesec; i++) {
+			Y_all.push_back(ptsY[i]);
+			std::cout << " points: " << Y_all[i] << " " << " "<<std::endl;
+		}
 	}
-	std::cout<<std::endl;
-	
+
+	// Y_all can be used here after the if-else block
+
 	// Setting parameters
 	// Yzero is the bottom constant value for the flat crystal surface [mm].
 	// Xmin sets the starting point for the first section or first 4 points, the rest are determined through a number of divisions unitl X=0 (symmetry plane).

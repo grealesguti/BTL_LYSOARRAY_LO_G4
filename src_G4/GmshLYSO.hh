@@ -78,6 +78,7 @@ G4Tet *LYSOTet_Solid;
 G4LogicalVolume *LYSOTet_Logic; 
 G4PVPlacement *LYSOTet_Phys;
 G4LogicalBorderSurface *LYSO_Air_Border;
+G4double TileScale=0;
 
 std::vector<G4PVPlacement*> lstPhysTet;
 std::vector<G4LogicalVolume*> fScoringVolumeVec;

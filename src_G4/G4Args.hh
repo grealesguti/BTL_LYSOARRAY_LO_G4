@@ -42,6 +42,7 @@ public:
 
     G4double GetGeom_DET_L() const {return DET_L;}
     G4double GetGeom_RESIN_L() const {return RESIN_Z;}
+    G4double Get_TileScale() const {return Tile_Scale;}
 
     G4double GetLYSO_Yield() const {return LYSOProps[0];}
     G4double GetLYSO_ScaleResolution() const {return LYSOProps[1];}
@@ -303,6 +304,7 @@ private:
     G4double IQRLD = 0;
     G4double IQRLSt = 0;
     G4int gunmesh=0; 
+    G4double Tile_Scale=0;
     int imax=0, jmax=0;
 
 };    

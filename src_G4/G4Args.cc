@@ -225,6 +225,12 @@ MyG4Args :: MyG4Args(int mainargc,char** mainargv)
                     Geom_Resin[1] = atof(mainargv[j+1]);j=j+1;
                     G4cout<< " ### Geom_Resin modified to :"<< Geom_Resin[1]*2 <<G4endl;         
                 }
+                else if(strcmp(mainargv[j],"-Tile_Scale")==0)
+                {   
+					Tile_Scale = atof(mainargv[j+1]);j=j+1;
+					nX=2;
+                    G4cout<< " ### Tile_Scale modified to :"<< Tile_Scale <<G4endl;         
+                }
                 else if(strcmp(mainargv[j],"-LYSO_Yield")==0)
                 {   
                     LYSOProps[0] = atof(mainargv[j+1]);j=j+1;
