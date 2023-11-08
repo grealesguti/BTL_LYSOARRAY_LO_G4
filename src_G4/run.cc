@@ -150,13 +150,14 @@ void MyRunAction::BeginOfRunAction(const G4Run* run)
 
     struct stat st;
 
-    if (stat("Results", &st) == -1) {
+    if (stat(PassArgs->GetRootFolder().c_str(), &st) == -1) {
         printf("Creating directory \"Results\" since it doesn't exist.\n");
-        mkdir("Results", 0700);
+        mkdir(PassArgs->GetRootFolder().c_str(), 0700);
     }
+    G4cout<<"Root file written to folder:" << PassArgs->GetRootFolder().c_str() << G4endl;
 
     // Creation of Output file
-    man->OpenFile("./Results/"+OutputName+strRunID.str()+".root");
+    man->OpenFile(PassArgs->GetRootFolder().c_str()+OutputName+strRunID.str()+".root");
 
     if(PassArgs->GetRnd_Geom()==1)
         {

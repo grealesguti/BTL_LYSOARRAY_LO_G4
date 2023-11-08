@@ -193,6 +193,7 @@ public:
     G4double* GetYincr() const {return yincr;}
     G4int GetYstr() const {return Ystr;}
     G4int GetGmshView() const {return GmshView;}
+    G4String GetRootFolder() const {return rootfolder;}
 
     G4double GetGeomIndv(G4int runid) const {return RndGenIndv[runid];}  
     G4double GetSZloc(){return SZ_loc;}
@@ -204,7 +205,7 @@ public:
 private:
 
     // Default values modifiable by arguments and able to be returned!!!
-    G4int Oin=0; 
+    G4int Oin=0, Rin=0; 
     G4int nrep=0; 
     G4int MainTrees[6]={0, 1, 0, 0, 1, 1};// Options to write(1)/orNot(0) the different output trees {Arrivals,Detected,Stepping,Tracking,EndOfEvent}
     G4double LYSOProps[4]={40000.,0.,60.,39.1};//Options to modify default LYSO properties {Yield,ScaleResolution,RiseTime,DecayTime}
@@ -214,6 +215,7 @@ private:
     G4String OutName, MacName;
     G4double Detection[2]={3.5,1};//Options to modify photon detection
     G4String DefOutName="DefaultOutputName_Run";
+    G4String DefRootFolder="./Results/";
     G4double KillSim[4]={0.,0.,0.,0.}; // Options on how to kill the simulation {Method(0 = all tracks have been killed, 1= nphotons have been detected at each SiPM, 2= x time has passed, 3= kills all photons after x local time, 4= use all parameters to kill the simulation) ,nphotons, global time, local time...}
     G4double StepSize=0.;    
     G4int GeomConfig=11;
@@ -305,6 +307,7 @@ private:
     G4double IQRLSt = 0;
     G4int gunmesh=0; 
     G4double Tile_Scale=0;
+    G4String rootfolder;
     int imax=0, jmax=0;
 
 };    

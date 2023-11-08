@@ -7,7 +7,6 @@ MyG4Args :: MyG4Args(int mainargc,char** mainargv)
 	PartDir[0]=0;	PartDir[1]=-1;	PartDir[2]=0;
 
 
-
     G4cout << " ### Processing Command line Arguments to the sim : " << G4endl;
     for (int j = 1; j < mainargc; j=j+1){
     G4cout << mainargv[j] <<"\n"<< G4endl;
@@ -225,6 +224,14 @@ MyG4Args :: MyG4Args(int mainargc,char** mainargv)
                     Geom_Resin[1] = atof(mainargv[j+1]);j=j+1;
                     G4cout<< " ### Geom_Resin modified to :"<< Geom_Resin[1]*2 <<G4endl;         
                 }
+               else if(strcmp(mainargv[j],"-rootfolder")==0)
+                {   
+                    //OutName = mainargv[j+1];      j=j+1;
+					Rin=1;
+                    rootfolder = mainargv[j+1];j=j+1;
+                    G4cout<< " ### rootfolder modified to :"<< rootfolder <<G4endl;         
+                }
+               
                 else if(strcmp(mainargv[j],"-Tile_Scale")==0)
                 {   
 					Tile_Scale = atof(mainargv[j+1]);j=j+1;
@@ -501,6 +508,8 @@ MyG4Args :: MyG4Args(int mainargc,char** mainargv)
 								}
 
     if (Oin == 0 ) {  OutName = DefOutName;   }
+        if (Rin == 0 ) {  rootfolder = DefRootFolder;   }
+
     if(dateflag == 1){   
         
         for(int i=0;i<21;i++){
