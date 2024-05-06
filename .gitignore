@@ -10,6 +10,11 @@
 *.geo
 *.pos
 *.png
+*.geo.opt
+*.mp4
+*.json
+*.stl
+*.tikz
 # ignore ALL files in ANY directore named temp
 temp/
 # ignore ALL files in the build directory
