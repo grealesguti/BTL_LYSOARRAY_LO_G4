@@ -108,37 +108,36 @@ Standard use is with 100 individuals. Notice that the algorithm can break if we 
 
 ## Optional arguments
 
-The commands work as follow `-command argument`, in `[]` we set the number of options, if an option is given as zero, the opposite takes 1.
+The commands work as follow `-command argument`, in `[]` we set the number of options. The <> defines the type of input, if no <> is given no further values are required for this command.
 
+-GeomConfig <int> : options [1 2 3 11 13] This argument changes the configuration of the detector. Configuration 1-3 provide use the default geometry construction of G4 while 11 and 13 use Gmsh and allow shape changes through splines and the -YPos argument. Config. 3 and 13 use 16 crystals while the rest use a single one.
+-Zelem <int> : number of mesh nodes along half of Z of the LYSO crystal
+-Znode <int> : number of sections of the LYSO mesh, number of <int> within the -Ypos argument minus 1
+-Ypos {-<int>-<int>} : value that multiplies the 3mm, by default height of the LYSO, of each spline control node of the mesh.
+-incrV <int> : range [1-199] value between 1 and 199 that provides the 1D study of 2 half tetrahedra for the crystal shape decreasing and increasing the LYSO thickness in the middle and edges of the crystal
 
--GeomConfig [1 2 3 11 13] : This argument changes the configuration of the detector. Configuration 1-3 provide use the default geometry construction of G4 while 11 and 13 use Gmsh and allow shape changes through splines and the -YPos argument. Config. 3 and 13 use 16 crystals while the rest use a single one.
--Zelem [8] : number of mesh nodes along half of Z of the LYSO crystal
--Znode [1] : number of sections of the LYSO mesh
--Ypos {-1-1} : value that multiplies the 3mm by default of each spline control node of the mesh.
--incrV [1-199] : value between 1 and 199 that provides the 1D study of 2 half tetrahedra for the crystal shape decreasing and increasing the LYSO thickness in the middle and edges of the crystal
+-o <string> :  name identifies the name.root file created in the Results folder with the information of the simulation.
+-runevt <int> : argument that provide how many events will be run. If not given and if you use G4vis.cc you can use the graphical interface.
 
--o name :  name identifies the name.root file created in the Results folder with the information of the simulation.
--runevt [10] : argument that provide how many events will be run. If not given and if you use G4vis.cc you can use the graphical interface.
-
--rnd [1 0 0] : taking 3 arguments. The second argument sets no random position to the particle impacts, the second sets no random geometry tolerances during the detector construction.
+-rnd <int> <int> <int> : taking 3 arguments in the form of 1 or 0. The second argument sets no random position to the particle impacts, the second sets no random geometry tolerances during the detector construction.
 -rndangle : the particle impacts in random directions and not only along the Z direction
--gunmesh [4 15] : provides a uniform impact pattern in a quarter of the crystal along X and Z. With the given defaults it would run 60 events.
+-gunmesh <int> <int> : provides a uniform impact pattern in a quarter of the crystal along X and Z. With the given defaults it would run 60 events.
 -Muon : sets the particle impact to 2MeV Muons.
 
 -ESRbackpainted : changes the surface coating model so that there is an air gap between the ESR and the LYSO
 -ESRdefaultmodel: changes the default G4 model with a polished LYSO, air gap and ESR (LUT DAVIS)
 -noESR : no ESR coating is applied to the crystal
 
--LYSO_L [28.5] : where the number given is half the lenght of the LYSO crystal along Z
+-LYSO_L <int> : default 28.5 where the number given is half the lenght of the LYSO crystal along Z
 -Acte : command that maintains the XxZ area constant increasint X if LYSO_L is changed
 -matchSiPM : command that sets the SiPM width X equal to the LYSO crystal width
--incrSiPM [25-200]: increases in percentage the height of the SiPM from its default 3mm 
--SiPM_Z
--RESIN_Z
--RESIN_Z1000
--Glue_Z
--Glue_Z1000
--RESIN_W
+-incrSiPM  <int> :range [25-200], increases in percentage the height of the SiPM from its default 3mm 
+-SiPM_Z <int>
+-RESIN_Z <int>
+-RESIN_Z1000 <int>
+-Glue_Z <int>
+-Glue_Z1000 <int>
+-RESIN_W <int>
 
 -GmshView: opens Gmsh before running G4. Right now does not allow to continue the simulation.
 -SaveSTL: saves an .stl file of the mesh for further postprocessing
@@ -147,7 +146,7 @@ The commands work as follow `-command argument`, in `[]` we set the number of op
 
 -TileV0 : changes configuration from bar to tile. (TODO: right now the design is assymmetrical, the triangulation needs to be changed in Gmsh)
 -ForceBottomLine: To always be used with -TileV0. Forces a given flat bottom surface.
--SZloc [0-1] : changes the SiPM location along Z at the bottom of the tile as a percentage of LYSO_L.
+-SZloc <double> : range [0-1] changes the SiPM location along Z at the bottom of the tile as a percentage of LYSO_L.
 
 ## How to start the graphical interface
 
@@ -161,7 +160,7 @@ and
 //G4simulationNOVIS *sim1 = new G4simulationNOVIS(runManager,argc, argv, Onode, Znode, radinit);
 G4simulation *sim = new G4simulation(argc, argv);
 
-now remake and compile and if no -runevt is given you should be running the gui.
+now remake and compile. If no -runevt is given you should be running the gui.
 
 THIS CAN NOT WORK IN TIERII or HPCs in general!!!
 
