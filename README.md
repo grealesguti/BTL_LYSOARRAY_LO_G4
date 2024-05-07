@@ -1,8 +1,8 @@
 # README
 
-## BTL LYSO Scintillation Simulation
+## SO-CRYSTAL (Shape Optimization for scintillating CRYSTals) 
 
-This code creates simulations of the impact of Na gamma rays and Muons onto a scintillator.
+This code creates simulations of the impact of Na gamma rays and Muons onto a LYSO:Ce scintillator.
 
 The output provides information of the Light Output and timing resolution of the attached SiPMs.
 
