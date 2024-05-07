@@ -164,6 +164,7 @@ now remake and compile. If no -runevt is given you should be running the gui.
 
 THIS CAN NOT WORK IN TIERII or HPCs in general!!!
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11127325.svg)](https://doi.org/10.5281/zenodo.11127325)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11127433.svg)](https://doi.org/10.5281/zenodo.11127433)
+
 
 
