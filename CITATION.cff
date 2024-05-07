@@ -3,7 +3,7 @@ authors:
 - family-names: "Reales Gutiérrez"
   given-names: "Guillermo"
 title: "SO-CRYSTAL"
-version: 0.1.5
+version: 0.1.8
 date-released: 2024-05-07
 doi: 10.5281/zenodo.11127433
 url: "https://github.com/grealesguti/SO-CRYSTAL"
