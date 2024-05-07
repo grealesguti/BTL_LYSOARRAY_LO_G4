@@ -16,18 +16,37 @@ Download the latest code using:
 
 The code is expected to work in conjonction with Gmsh for the shape of the crystals.
 
-The singularity file () provides the required libraries to run the code.
+### Apptainer/Singularity installation
+
+Apptainer, previously called singularity, provides a conteinerized environment that can run this code without any need for local installation. This provides the advantage to work in any operating system independently of any future updates at the cost of slighlty lower efficiency.
+
+The singularity file ( https://drive.google.com/file/d/1Yjz-a1oVOpPOJ554Z07GvCtMKcX5Dai7/view?usp=sharing , request access if needed) provides the required libraries to run the code.
 
 An example installed and run using:
 
 `
 singularity exec <path-to-the-singularity-file> make -f Makefile.localgmsh
-singularity exec <path-to-the-singularity-file> ./sim -GeomConfig 11 -runevt 10
+singularity exec <path-to-the-singularity-file> ./sim -GeomConfig 1 -runevt 10
 `
 
 or with a more complex example and a given path:
 
 `singularity exec ../../SingDir/sandG4Gmsh ./sim -GeomConfig 11 -runevt 10 -Volume -nDetected -incrSiPM 125 -LYSO_L 20 -ResinMach -rnd 0 -Znode 1 -Ypos {1-1} -Acte -BC400`
+
+
+### Local installation (2023.10)
+
+To install locally we need to install GMSH, GEANT4 and their dependencies. 
+
+The compilation and running is similar as in the previous case without the need of singularity/apptainer.
+
+
+#### GEANT4 installation
+
+
+#### GMSH installation
+
+
 
 ### How to run under a singularity file (Singularity has changed its name!! Apptainer, same fucntionality)
 
@@ -50,7 +69,7 @@ Login into TierII: `username@login-1.hep.caltech.edu`
 
 Set your respective proxy: `voms-proxy-init -voms cms -rfc -valid 192:0 --bits 2048`
 
-Run using one of the example submission and job files in their respective folders.
+Run using one of the example submission and job files in their respective folders (SubFiles & JobFiles folders).
 
 ### Running numerical optimization (Runs In TierII)
 
@@ -142,7 +161,7 @@ and
 //G4simulationNOVIS *sim1 = new G4simulationNOVIS(runManager,argc, argv, Onode, Znode, radinit);
 G4simulation *sim = new G4simulation(argc, argv);
 
-now remake and if no -runevt is given you should be runnign the gui.
+now remake and compile and if no -runevt is given you should be running the gui.
 
-THIS CAN NOT WORK IN TIERII!!!
+THIS CAN NOT WORK IN TIERII or HPCs in general!!!
 
