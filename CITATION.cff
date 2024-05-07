@@ -1,9 +1,10 @@
 message: "If you use this software, please cite it as below."
 authors:
 - family-names: "Reales Gutiérrez"
-  given-names: "Mona"
+  given-names: "Guillermo"
 title: "SO-CRYSTAL"
 version: 0.1.5
 date-released: 2024-05-07
+doi: 10.5281/zenodo.11127433
 url: "https://github.com/grealesguti/SO-CRYSTAL"
 
