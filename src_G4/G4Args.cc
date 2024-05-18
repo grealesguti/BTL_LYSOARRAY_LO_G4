@@ -91,6 +91,16 @@ MyG4Args :: MyG4Args(int mainargc,char** mainargv)
                     G4cout<< " ### Random Geometry Parameters set to  : " << RndGen[2] <<G4endl;                          
                     } 
                 }
+                else if(strcmp(mainargv[j],"-DT1")==0)
+                {   
+                    LYSOProps[3] = atof(mainargv[j+1]);
+                    G4cout<< " ### Storing Tree Detected" <<G4endl;         
+                }
+                else if(strcmp(mainargv[j],"-RT1")==0)
+                {   
+                    LYSOProps[2] = atof(mainargv[j+1]);
+                    G4cout<< " ### Storing Tree Detected" <<G4endl;         
+                }
                 else if(strcmp(mainargv[j],"-Arrivals")==0)
                 {   
                     MainTrees[0] = 1;

@@ -21,7 +21,7 @@
  * `light_yield` should be in photons/MeV, and `rise_time` in ps.
  *
  * FIXME: What is scale resolution? */
-G4Material *get_lyso(double light_yield, double rise_time, double scale_resolution)
+G4Material *get_lyso(double light_yield, double rise_time, double scale_resolution, double decay_time)
 {
     int n;
 
@@ -86,8 +86,9 @@ G4Material *get_lyso(double light_yield, double rise_time, double scale_resoluti
 
     mptScint->AddProperty("RAYLEIGH", lyso_scattering_length_ene, lyso_scattering_length_values, n);
     mptScint->AddConstProperty("RESOLUTIONSCALE", scale_resolution);
-    mptScint->AddConstProperty("SCINTILLATIONTIMECONSTANT1", 39.1 * ns);
+    //mptScint->AddConstProperty("SCINTILLATIONTIMECONSTANT1", 39.1 * ns);
     mptScint->AddConstProperty("SCINTILLATIONYIELD1", 1.0);
+    mptScint->AddConstProperty("SCINTILLATIONTIMECONSTANT1", decay_time*ns);
     mptScint->AddConstProperty("SCINTILLATIONRISETIME1", rise_time*ps);
     scintillator->SetMaterialPropertiesTable(mptScint);
 

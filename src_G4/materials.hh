@@ -3,7 +3,7 @@
 #include "G4Material.hh" // Class representing a material in Geant4
 
 // Function to create a custom material named "lyso" with specified light yield, rise time, and scale resolution
-G4Material *get_lyso(double light_yield, double rise_time, double scale_resolution);
+G4Material *get_lyso(double light_yield, double rise_time, double scale_resolution, double decay_resolution);
 
 // Function to create a custom material named "BC400" with specified light yield, rise time, and scale resolution
 G4Material *get_BC400(double light_yield, double rise_time, double scale_resolution);

@@ -85,7 +85,7 @@ void MyDetectorConstruction::DefineMaterial()
 		RTV3145 = get_rtv();
 			if(ArgsPass->GetScintMat()==1  ){
 						G4cout<< " * LYSO. " <<G4endl;         
-		scintillator = get_lyso(LYSO_YIELD,LYSO_RT1,LYSO_SCALERESOLUTION);
+		scintillator = get_lyso(LYSO_YIELD,LYSO_RT1,LYSO_SCALERESOLUTION,LYSO_DT1);
 			} else if(ArgsPass->GetScintMat()==2 ){
 						G4cout<< " * BC400. " <<G4endl;         
 		scintillator = get_BC400(BC400_YIELD,BC400_RT1,LYSO_SCALERESOLUTION);
@@ -960,6 +960,7 @@ logicDetector->SetSensitiveDetector(sensDet);
     ESRtrue=ArgsPass->GetESRTrue();
     LYSO_SC1=ArgsPass->GetLYSO_DecayT();
     LYSO_RT1=ArgsPass->GetLYSO_RiseT();
+    LYSO_DT1=ArgsPass->GetLYSO_DecayT();
     BC400_RT1=900;
 
 }
