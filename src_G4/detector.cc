@@ -74,8 +74,9 @@ if (PassArgs->GetTree_Hits() == 1){
     man->FillNtupleDColumn(0, 5,  Tlength/mm);
 				man->FillNtupleDColumn(0, 6,  direction[0]);// D==double
 				man->FillNtupleDColumn(0, 7,  direction[1]);
-				man->FillNtupleDColumn(0, 8,  direction[2]);  
+				man->FillNtupleDColumn(0, 8,  direction[2]);
 				man->FillNtupleDColumn(0, 9,  timeL/ps); 
+				man->FillNtupleDColumn(0, 9,  timeG/ps); 
     man->AddNtupleRow(0);
 }
 

@@ -27,6 +27,8 @@ MyRunAction :: MyRunAction(G4String OutName,MyG4Args* MainArgs)
             man->CreateNtupleDColumn("fdirY");
             man->CreateNtupleDColumn("fdirZ");
             man->CreateNtupleDColumn("ftimeL");
+            man->CreateNtupleDColumn("ftimeG");
+
 				            man->FinishNtuple(0); // Finish our first tuple or Ntuple number 0
 
         // Tuple containing all data from the Photons being detected
