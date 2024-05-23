@@ -208,7 +208,8 @@ public:
     G4double GetTimStd(G4int runid) const {return nRunTimingStd[runid];}  // Get timing Standard deviation btw all events in the run [runid]
     G4double GetnEvtEdep(G4int runid) const {return nEdepEvts[runid];}  // 
     G4double GetVolume() const {return Volume;} // Get LYSO total volume
-    
+    G4double GetIp() const {return Ip;} // Get LYSO total volume
+
     // Double space exploration Getters: helped in the design exploration of the bar configurations
     G4double GetIncr() const {return incr;} // Test: [incr] forces an increase of thickness in the middle of the crystal equal to incr*3mm
     G4double GetIncrS() const {return incrS;} // Test: [incrS] forces an increase of thickness in the edge of the crystal equal to incr*3mm
@@ -319,6 +320,7 @@ private:
 
     G4double DET_YMAX=3;
     G4double DET_XMAX=3;
+    G4double Ip=0;
 
     G4double DET_L=0.3/2.; // SiPM thickness default
 
