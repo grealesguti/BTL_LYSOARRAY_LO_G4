@@ -4,9 +4,9 @@
 MyEventAction::MyEventAction(MyRunAction*, MyG4Args* MainArgs)
 {
     double wavelength[1000], qe[1000];
-
     PassArgs = MainArgs;
 
+	GenZ = PassArgs->GetIpImpact()*PassArgs->GetGeom_LYSO_L()/1000;
     PDE = new G4PhysicsOrderedFreeVector();
     G4double Vov = PassArgs->GetVov();
     G4double Eff420 = (0.393 * 1.0228) * (1 - exp(-0.583*Vov));

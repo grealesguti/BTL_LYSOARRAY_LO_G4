@@ -33,7 +33,7 @@ MyPrimaryGenerator :: MyPrimaryGenerator(MyG4Args* MainArgs)
                     G4ThreeVector pos(-1*LT*mm,0.05*m,0.*m);
                     fParticleGun->SetParticlePosition (pos);
                 }else{
-                    G4ThreeVector pos(0.*m,0.05*m,0.*m);
+                    G4ThreeVector pos(0.*m,0.05*m,PassArgs->GetIpImpact()*PassArgs->GetGeom_LYSO_L()/1000*m);
                     fParticleGun->SetParticlePosition (pos);
                 }
 
