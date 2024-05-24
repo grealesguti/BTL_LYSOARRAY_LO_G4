@@ -38,7 +38,7 @@ private:
     // Variables to store energy deposit, photon count, and linear optical (LO) values
     G4double fEdep; // accumulation of energy deposition
     G4double fPhCount; // accumulation of photon counts
-    G4double fLO, GenX=0., GenZ=PassArgs->GetIp()*PassArgs->GetGeom_LYSO_L()/1000; // Additional variables for LO and generic X and Z positions, initialized to 0
+    G4double fLO, GenX=0., GenZ=0.; // Additional variables for LO and generic X and Z positions, initialized to 0
     G4double PDE420; // Variable for storing a specific value, possibly related to physics processes (peak PDE value to scale the PDE values from the txt)
     G4PhysicsOrderedFreeVector *PDE; // Pointer to a vector of physics processes for the PDE of the SiPM (read it out)
     G4double PXd, PZd; // Variables for storing generic X and Z positions
