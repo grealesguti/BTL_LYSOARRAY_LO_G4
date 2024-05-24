@@ -132,7 +132,7 @@ public:
     G4double GetGeom_RESIN_L() const {return RESIN_Z;}	// Half length of the SiPM resin package thickness along Z (without counting the SiPM thickness in Z) Cmd -> 
     G4double GetGeom_Resin_width() const {return Geom_Resin[1];}	// Half length of the SiPM resin package thickness along Y (direction of the SiPM package) centered in the middle bar Cmd -> 
     G4double GetGeom_LYSO_L() const {return Geom_LYSO[2];}	// Half length of the LYSO along Z Cmd -> 
-    G4double GetGeom_LYSO_thick() const {return Geom_LYSO[1];}	// Half length of the LYSO along Y for the bar configuration Cmd -> 
+    G4double GetGeom_LYSO_thick() const {return Geom_LYSO[0];}	// Half length of the LYSO along Y for the bar configuration Cmd -> 
     G4double GetGeom_DET_T() const {return DET_T;} // Half length of the detector SiPM Z thickness
     G4double GetGeom_DET_TX() const {return DET_TX;} //  Half length of the detector SiPM X width
     G4double GetGeom_DET_TX_tol() const {return DET_TX_tol;} //  X tolerance for the SiPM positioning, requires random geometry -rnd 0 1 0 or -rnd 1

@@ -1,7 +1,5 @@
 #include "G4Args.hh"
 #include <unistd.h> /* for exit() */
-#include "util.hh" // Custom utility functions and definitions
-
 
 
 MyG4Args :: MyG4Args(int mainargc,char** mainargv)
@@ -206,11 +204,6 @@ MyG4Args :: MyG4Args(int mainargc,char** mainargv)
                     Geom_LYSO[2] = atof(mainargv[j+1]);j=j+1;
                     G4cout<< " ### LYSO_L modified to :"<< Geom_LYSO[2]*2 <<G4endl;         
                 }
-                else if(strcmp(mainargv[j],"-LYSO_W")==0)
-                {   
-                    Geom_LYSO[1] = atof(mainargv[j+1]);j=j+1;
-                    G4cout<< " ### LYSO_L modified to :"<< Geom_LYSO[0]*2 <<G4endl;         
-                }                
                 else if(strcmp(mainargv[j],"-SiPM_Z")==0)
                 {   
                     DET_L = atof(mainargv[j+1]);j=j+1;
