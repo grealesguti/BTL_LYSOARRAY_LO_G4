@@ -328,6 +328,7 @@ private:
     G4double DET_TX=3./2; // SiPM widht in X by default
     G4double DET_TX_tol=0.;
     G4double DET_TY_tol=0.;
+    G4double Ip=0.;
 
     G4double Glue_Y=3.; // Glue layer width by default
     G4double Glue_Z=0.2; // Glue layer thickness by default
