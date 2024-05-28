@@ -81,7 +81,7 @@ public:
     //*** Initialization functions ***// 
     // -> Set to zero at the begining of run.cc or event.cc to avoid numerical issues or bad counts
     // -> or, define default dimensions
-    void InitAllCount(){ArgLO = 0;ArgCrossTalk = 0;TotPh = 0;PhHit=0;Edep=0.;MuonEdep=0.;nPhotL=0;nPhotR=0;PhotTiming[1]=0.;MuonLYSOTrackLength=0.;} // Initialize counters (Energy deposition, photon impacts ... ) to zero for each run
+    void InitAllCount(){ArgArrival=0; ArgLO = 0;ArgCrossTalk = 0;TotPh = 0;PhHit=0;Edep=0.;MuonEdep=0.;nPhotL=0;nPhotR=0;PhotTiming[1]=0.;MuonLYSOTrackLength=0.;} // Initialize counters (Energy deposition, photon impacts ... ) to zero for each run
     void InitTotPh(){TotPh = 0;}
     void InitLO(){ArgLO = 0;}
     void InitCT(){ArgCrossTalk = 0;}
@@ -164,6 +164,7 @@ public:
     G4int GetKillTLTrue() const {return KillLTTrue;}
     G4int GetnEvents() const {return nEvents;}
     G4int GetLO() const {return ArgLO;} //  Returns the LO values
+    G4int GetArrivals() const {return ArgArrival;} //  Returns the number of photons that arrive to the photodetector
     G4int GetCT() const {return ArgCrossTalk;}  //  Returns the Cross Talk values
     G4int GetTP() const {return TotPh;} 
     G4int GetNPhotL() const {return nPhotL;} //  Returns photon hits in the Z<0 SiPM
@@ -226,6 +227,8 @@ public:
     void AddMuonLYSOTrackLength(G4double TLadd){MuonLYSOTrackLength += TLadd;} // Add [TLadd] to the impacting particle track length in the LYSO
     void AddPhHit(){PhHit += 1;} // +1 photon hit in a SiPM
     void AddLO(){ArgLO += 1;} // +1 photon hit in a SiPM for the LO calculation
+    void AddArrival(){ArgArrival += 1;} // +1 photon hit in a SiPM for the LO calculation
+
     void AddCT(){ArgCrossTalk += 1;} // +1 photon hit in a SiPM not in the impacted LYSO edges (Cross-talk) - Requires GC 3/13
     void AddTP(){TotPh += 1;}
     void AddPhotR(){nPhotR += 1;}	// +1 photon hit in a SiPM in positive Z location
@@ -300,6 +303,7 @@ private:
     G4int rad2Y=0;
 
     G4int ArgLO=0;
+    G4int ArgArrival=0;
     G4int ArgCrossTalk=0;
     G4int TotPh=0; 
     G4int PhHit=0;

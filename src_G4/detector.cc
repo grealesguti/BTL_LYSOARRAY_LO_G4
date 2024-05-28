@@ -79,6 +79,7 @@ if (PassArgs->GetTree_Hits() == 1){
 				man->FillNtupleDColumn(0, 10,  timeG/ps); 
     man->AddNtupleRow(0);
 }
+    PassArgs->AddArrival();
 
     PassArgs->AddPhHit();
     G4double PDElim =PDE->Value(wlen);

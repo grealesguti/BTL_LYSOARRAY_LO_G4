@@ -162,6 +162,8 @@ if(PassArgs->GetTree_EndOfEvent()==1){
     man->FillNtupleDColumn(4, 10, YPOS);
     man->FillNtupleDColumn(4, 11, XPOS2);
     man->FillNtupleDColumn(4, 12, YPOS2);
+    man->FillNtupleDColumn(4, 21, PassArgs->GetArrivals());
+
     //man->FillNtupleDColumn(4, 13, PC/(PassArgs->GetEdep()/MeV)/2.*PassArgs->GetMuonLYSOTrackLength());
 
     if (GeomConfig == 3 || GeomConfig == 13){
