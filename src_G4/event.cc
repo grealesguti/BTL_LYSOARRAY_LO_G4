@@ -171,7 +171,7 @@ if(PassArgs->GetTree_EndOfEvent()==1){
     man->FillNtupleDColumn(4, 12, YPOS2);
     man->FillNtupleDColumn(4, 21, PassArgs->GetArrivals());
     man->FillNtupleDColumn(4, 22, PassArgs->GetTPwlen());
-    man->FillNtupleDColumn(4, 22, PassArgs->GetAPwlen());
+    man->FillNtupleDColumn(4, 23, PassArgs->GetAPwlen());
 
     //man->FillNtupleDColumn(4, 13, PC/(PassArgs->GetEdep()/MeV)/2.*PassArgs->GetMuonLYSOTrackLength());
 
