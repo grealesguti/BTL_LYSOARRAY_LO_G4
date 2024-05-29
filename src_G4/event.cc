@@ -92,6 +92,9 @@ void MyEventAction::EndOfEventAction(const G4Event *anEvent)
     G4cout<< "Light Output Average (LO/2.) end of event: " << PC/(PassArgs->GetEdep()/MeV)/2. << G4endl;
     G4cout<< "Muon Track Length in LYSO: " << PassArgs->GetMuonLYSOTrackLength() << G4endl;
     G4cout<< "LC / Stopping Power: " << PC/(PassArgs->GetEdep()/MeV)/2.*PassArgs->GetMuonLYSOTrackLength()<< G4endl;
+    G4cout<< "Arrivals: " << PassArgs->GetArrivals()<< G4endl;
+	G4double ratioAPh = (static_cast<double>(PassArgs->GetArrivals()) / static_cast<double>(PassArgs->GetTP())) * 100;
+    G4cout<< "Ratio Arrival/Total: " << ratioAPh << G4endl;
 
     if(PassArgs->GetTimeTrue()==1){G4cout<< "Global Timing: " << PassArgs->GetPhotTiming() << G4endl;}
     G4cout<< "#####################" << G4endl;
