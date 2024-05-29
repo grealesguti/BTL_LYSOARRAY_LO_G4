@@ -95,6 +95,7 @@ void MyEventAction::EndOfEventAction(const G4Event *anEvent)
     G4cout<< "Arrivals: " << PassArgs->GetArrivals()<< G4endl;
 	G4double ratioAPh = (static_cast<double>(PassArgs->GetArrivals()) / static_cast<double>(PassArgs->GetTP())) * 100;
     G4cout<< "Ratio Arrival/Total: " << ratioAPh << G4endl;
+    G4cout<< "Total photon generation energy: " << PassArgs->GetTPwlen() << G4endl;
 
     if(PassArgs->GetTimeTrue()==1){G4cout<< "Global Timing: " << PassArgs->GetPhotTiming() << G4endl;}
     G4cout<< "#####################" << G4endl;
@@ -166,6 +167,7 @@ if(PassArgs->GetTree_EndOfEvent()==1){
     man->FillNtupleDColumn(4, 11, XPOS2);
     man->FillNtupleDColumn(4, 12, YPOS2);
     man->FillNtupleDColumn(4, 21, PassArgs->GetArrivals());
+    man->FillNtupleDColumn(4, 22, PassArgs->GetTPwlen());
 
     //man->FillNtupleDColumn(4, 13, PC/(PassArgs->GetEdep()/MeV)/2.*PassArgs->GetMuonLYSOTrackLength());
 
