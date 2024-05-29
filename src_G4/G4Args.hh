@@ -81,7 +81,7 @@ public:
     //*** Initialization functions ***// 
     // -> Set to zero at the begining of run.cc or event.cc to avoid numerical issues or bad counts
     // -> or, define default dimensions
-    void InitAllCount(){TPwlen=0; ArgArrival=0; ArgLO = 0;ArgCrossTalk = 0;TotPh = 0;PhHit=0;Edep=0.;MuonEdep=0.;nPhotL=0;nPhotR=0;PhotTiming[1]=0.;MuonLYSOTrackLength=0.;} // Initialize counters (Energy deposition, photon impacts ... ) to zero for each run
+    void InitAllCount(){APwlen=0;TPwlen=0; ArgArrival=0; ArgLO = 0;ArgCrossTalk = 0;TotPh = 0;PhHit=0;Edep=0.;MuonEdep=0.;nPhotL=0;nPhotR=0;PhotTiming[1]=0.;MuonLYSOTrackLength=0.;} // Initialize counters (Energy deposition, photon impacts ... ) to zero for each run
     void InitTotPh(){TotPh = 0;}
     void InitLO(){ArgLO = 0;}
     void InitCT(){ArgCrossTalk = 0;}
@@ -211,6 +211,7 @@ public:
     G4double GetVolume() const {return Volume;} // Get LYSO total volume
 	G4double GetIpImpact() const {return Ip;}
 	G4double GetTPwlen() const {return TPwlen;}
+	G4double GetAPwlen() const {return APwlen;}
 
     // Double space exploration Getters: helped in the design exploration of the bar configurations
     G4double GetIncr() const {return incr;} // Test: [incr] forces an increase of thickness in the middle of the crystal equal to incr*3mm
@@ -233,6 +234,8 @@ public:
     void AddCT(){ArgCrossTalk += 1;} // +1 photon hit in a SiPM not in the impacted LYSO edges (Cross-talk) - Requires GC 3/13
     void AddTP(){TotPh += 1;}
     void AddTPwlen(G4double wlenph){TPwlen+= wlenph;}
+    void AddAPwlen(G4double wlenph1){APwlen+= wlenph1;}
+
     void AddPhotR(){nPhotR += 1;}	// +1 photon hit in a SiPM in positive Z location
     void AddPhotL(){nPhotL += 1;}    // +1 photon hit in a SiPM in negative Z location
     void AddPhotTiming(G4double , G4double);
@@ -304,6 +307,7 @@ private:
     G4int NSGAII=0; 
     G4int rad2Y=0;
     G4double TPwlen=0;
+    G4double APwlen=0;
 
     G4int ArgLO=0;
     G4int ArgArrival=0;
