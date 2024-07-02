@@ -4,9 +4,9 @@
 MyEventAction::MyEventAction(MyRunAction*, MyG4Args* MainArgs)
 {
     double wavelength[1000], qe[1000];
-
     PassArgs = MainArgs;
 
+	GenZ = PassArgs->GetIpImpact()*PassArgs->GetGeom_LYSO_L()/1000;
     PDE = new G4PhysicsOrderedFreeVector();
     G4double Vov = PassArgs->GetVov();
     G4double Eff420 = (0.393 * 1.0228) * (1 - exp(-0.583*Vov));
@@ -92,6 +92,13 @@ void MyEventAction::EndOfEventAction(const G4Event *anEvent)
     G4cout<< "Light Output Average (LO/2.) end of event: " << PC/(PassArgs->GetEdep()/MeV)/2. << G4endl;
     G4cout<< "Muon Track Length in LYSO: " << PassArgs->GetMuonLYSOTrackLength() << G4endl;
     G4cout<< "LC / Stopping Power: " << PC/(PassArgs->GetEdep()/MeV)/2.*PassArgs->GetMuonLYSOTrackLength()<< G4endl;
+    G4cout<< "Arrivals: " << PassArgs->GetArrivals()<< G4endl;
+	G4double ratioAPh = (static_cast<double>(PassArgs->GetArrivals()) / static_cast<double>(PassArgs->GetTP())) * 100;
+    G4cout<< "Ratio Arrival/Total: " << ratioAPh << G4endl;
+    G4cout<< "Total photon generation energy: " << PassArgs->GetTPwlen() << G4endl;
+    G4cout<< "Total photon arrival energy: " << PassArgs->GetAPwlen() << G4endl;
+    G4cout<< "Ratio photon energy: " << PassArgs->GetAPwlen() / PassArgs->GetTPwlen() << G4endl;
+
 
     if(PassArgs->GetTimeTrue()==1){G4cout<< "Global Timing: " << PassArgs->GetPhotTiming() << G4endl;}
     G4cout<< "#####################" << G4endl;
@@ -162,6 +169,10 @@ if(PassArgs->GetTree_EndOfEvent()==1){
     man->FillNtupleDColumn(4, 10, YPOS);
     man->FillNtupleDColumn(4, 11, XPOS2);
     man->FillNtupleDColumn(4, 12, YPOS2);
+    man->FillNtupleDColumn(4, 21, PassArgs->GetArrivals());
+    man->FillNtupleDColumn(4, 22, PassArgs->GetTPwlen());
+    man->FillNtupleDColumn(4, 23, PassArgs->GetAPwlen());
+
     //man->FillNtupleDColumn(4, 13, PC/(PassArgs->GetEdep()/MeV)/2.*PassArgs->GetMuonLYSOTrackLength());
 
     if (GeomConfig == 3 || GeomConfig == 13){

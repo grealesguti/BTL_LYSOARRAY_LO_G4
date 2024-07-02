@@ -175,12 +175,14 @@ void MyDetectorConstruction::DefineMaterial()
 					G4double specularspike[2] = {0., 0.}; // Specular spike constants
 					G4double backscatter[2] = {0., 0.}; // Backscatter constants
 
+					mirrorSurface -> SetModel(unified);
 					mptMirror -> AddProperty("RINDEX",energyWorld,rindexWorld,2);
 					mptMirror -> AddProperty("SPECULARLOBECONSTANT",pp,specularlobe,2);
 					mptMirror -> AddProperty("SPECULARSPIKECONSTANT",pp,specularspike,2);
 					mptMirror -> AddProperty("BACKSCATTERCONSTANT",pp,backscatter,2);
 					mirrorSurface -> SetMaterialPropertiesTable(mptMirror);
 					mirrorSurface -> SetFinish(polishedbackpainted);
+					mirrorSurface->SetSigmaAlpha(ArgsPass->GetSigmaA());
 
 			}	else if(ArgsPass->GetESRFinish()==0){
 					G4cout<< " *### coated. " <<G4endl;     
@@ -194,14 +196,16 @@ void MyDetectorConstruction::DefineMaterial()
 					mirrorSurface -> SetType(dielectric_metal);
 					mirrorSurface -> SetFinish(polished);//-backpainted
 					mirrorSurface -> SetModel(unified);
-					
+					mirrorSurface->SetSigmaAlpha(ArgsPass->GetSigmaA());
 						}	else {
 					G4MaterialPropertiesTable *mptMirror = new G4MaterialPropertiesTable();
 					mptMirror->AddProperty("REFLECTIVITY", energymirror0, reflectivity0,34); // fraction of the light reflected (all=1)
 					mirrorSurface = new G4OpticalSurface("mirrorSurface");
 
 					G4cout<< " *### default. " <<G4endl;         
-					mirrorSurface -> SetFinish(  polishedvm2000air);}
+					mirrorSurface -> SetFinish(  polishedvm2000air);
+					mirrorSurface->SetSigmaAlpha(ArgsPass->GetSigmaA());
+					}
 		
         G4cout<< " * ESR. " <<G4endl;         
     ///////////////////////

@@ -85,6 +85,9 @@ MyRunAction :: MyRunAction(G4String OutName,MyG4Args* MainArgs)
             man->CreateNtupleDColumn("fLC");
             man->CreateNtupleDColumn("fevt");
             man->CreateNtupleDColumn("fLSt");
+            man->CreateNtupleDColumn("fArrived");
+            man->CreateNtupleDColumn("fsumwlenT");
+            man->CreateNtupleDColumn("fsumwlenA");
             man->FinishNtuple(4); // Finish our first tuple or Ntuple number 0
 
          // Tuple containing all data fregarding the estimations written to screen at the end of each event

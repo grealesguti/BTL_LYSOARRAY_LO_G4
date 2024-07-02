@@ -81,7 +81,8 @@ public:
     //*** Initialization functions ***// 
     // -> Set to zero at the begining of run.cc or event.cc to avoid numerical issues or bad counts
     // -> or, define default dimensions
-    void InitAllCount(){ArgLO = 0;ArgCrossTalk = 0;TotPh = 0;PhHit=0;Edep=0.;MuonEdep=0.;nPhotL=0;nPhotR=0;PhotTiming[1]=0.;MuonLYSOTrackLength=0.;} // Initialize counters (Energy deposition, photon impacts ... ) to zero for each run
+    void InitAllCount(){APwlen=0;TPwlen=0; ArgArrival=0; ArgLO = 0;ArgCrossTalk = 0;TotPh = 0;PhHit=0;Edep=0.;MuonEdep=0.;nPhotL=0;nPhotR=0;PhotTiming[1]=0.;MuonLYSOTrackLength=0.;} // Initialize counters (Energy deposition, photon impacts ... ) to zero for each run
+
     void InitTotPh(){TotPh = 0;}
     void InitLO(){ArgLO = 0;}
     void InitCT(){ArgCrossTalk = 0;}
@@ -125,6 +126,7 @@ public:
     G4int GetYstr() const {return Ystr;}			// Returns the value for each input node for the LYSO creation
     G4int GetGmshView() const {return GmshView;}	// If == 1 forces a gmsh visualization rather than a G4 visualization of the LYSO geom
     G4int GetOnode() const {return Onode;}
+    G4double GetSigmaA() const {return SigmaA;}
 
    
     // Double construction property Getters: geometry dimensions
@@ -164,6 +166,7 @@ public:
     G4int GetKillTLTrue() const {return KillLTTrue;}
     G4int GetnEvents() const {return nEvents;}
     G4int GetLO() const {return ArgLO;} //  Returns the LO values
+    G4int GetArrivals() const {return ArgArrival;} //  Returns the number of photons that arrive to the photodetector
     G4int GetCT() const {return ArgCrossTalk;}  //  Returns the Cross Talk values
     G4int GetTP() const {return TotPh;} 
     G4int GetNPhotL() const {return nPhotL;} //  Returns photon hits in the Z<0 SiPM
@@ -208,7 +211,10 @@ public:
     G4double GetTimStd(G4int runid) const {return nRunTimingStd[runid];}  // Get timing Standard deviation btw all events in the run [runid]
     G4double GetnEvtEdep(G4int runid) const {return nEdepEvts[runid];}  // 
     G4double GetVolume() const {return Volume;} // Get LYSO total volume
-    G4double GetIp() const {return Ip;} // Get LYSO total volume
+	G4double GetIpImpact() const {return Ip;}
+	G4double GetTPwlen() const {return TPwlen;}
+	G4double GetAPwlen() const {return APwlen;}
+
 
     // Double space exploration Getters: helped in the design exploration of the bar configurations
     G4double GetIncr() const {return incr;} // Test: [incr] forces an increase of thickness in the middle of the crystal equal to incr*3mm
@@ -226,8 +232,14 @@ public:
     void AddMuonLYSOTrackLength(G4double TLadd){MuonLYSOTrackLength += TLadd;} // Add [TLadd] to the impacting particle track length in the LYSO
     void AddPhHit(){PhHit += 1;} // +1 photon hit in a SiPM
     void AddLO(){ArgLO += 1;} // +1 photon hit in a SiPM for the LO calculation
+    void AddArrival(){ArgArrival += 1;} // +1 photon hit in a SiPM for the LO calculation
+
     void AddCT(){ArgCrossTalk += 1;} // +1 photon hit in a SiPM not in the impacted LYSO edges (Cross-talk) - Requires GC 3/13
     void AddTP(){TotPh += 1;}
+    void AddTPwlen(G4double wlenph){TPwlen+= wlenph;}
+    void AddAPwlen(G4double wlenph1){APwlen+= wlenph1;}
+
+
     void AddPhotR(){nPhotR += 1;}	// +1 photon hit in a SiPM in positive Z location
     void AddPhotL(){nPhotL += 1;}    // +1 photon hit in a SiPM in negative Z location
     void AddPhotTiming(G4double , G4double);
@@ -298,8 +310,12 @@ private:
     G4int RootCreate=1;
     G4int NSGAII=0; 
     G4int rad2Y=0;
+    G4double TPwlen=0;
+    G4double APwlen=0;
+
 
     G4int ArgLO=0;
+    G4int ArgArrival=0;
     G4int ArgCrossTalk=0;
     G4int TotPh=0; 
     G4int PhHit=0;
@@ -320,7 +336,6 @@ private:
 
     G4double DET_YMAX=3;
     G4double DET_XMAX=3;
-    G4double Ip=0;
 
     G4double DET_L=0.3/2.; // SiPM thickness default
 
@@ -330,6 +345,7 @@ private:
     G4double DET_TX=3./2; // SiPM widht in X by default
     G4double DET_TX_tol=0.;
     G4double DET_TY_tol=0.;
+    G4double Ip=0.;
 
     G4double Glue_Y=3.; // Glue layer width by default
     G4double Glue_Z=0.2; // Glue layer thickness by default
@@ -346,6 +362,9 @@ private:
     G4double PartDir[3];
     G4double PartDisplX=0; // Particle origin displacement in X at 0.5m in Y
     G4double PartAngle=0; // Angle of incidence of the particles
+    G4double SigmaA=0.000001; // Angle of incidence of the particles
+
+    
     G4int rndangle=0; // random impacting angle?
     G4int SaveSTL=0;
     G4int scint=1;

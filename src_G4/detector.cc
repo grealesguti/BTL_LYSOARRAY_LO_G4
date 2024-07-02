@@ -50,7 +50,7 @@ G4bool MySensitiveDetector::ProcessHits(G4Step *aStep, G4TouchableHistory *ROhis
     G4ThreeVector direction = momentumDirection.unit();
 
     G4double wlen = (1.239841939*eV/momPhoton.mag())*1E+03;
-
+    PassArgs->AddAPwlen(1/wlen);
 
     const G4VTouchable *touchable = aStep->GetPreStepPoint()->GetTouchable();
 
@@ -76,11 +76,14 @@ if (PassArgs->GetTree_Hits() == 1){
 				man->FillNtupleDColumn(0, 7,  direction[1]);
 				man->FillNtupleDColumn(0, 8,  direction[2]);
 				man->FillNtupleDColumn(0, 9,  timeL/ps); 
-				man->FillNtupleDColumn(0, 9,  timeG/ps); 
+				man->FillNtupleDColumn(0, 10,  timeG/ps); 
     man->AddNtupleRow(0);
 }
+    PassArgs->AddArrival();
 
     PassArgs->AddPhHit();
+
+    
     G4double PDElim =PDE->Value(wlen);
 
     if (G4UniformRand() < PDElim){

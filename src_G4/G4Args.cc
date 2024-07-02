@@ -101,7 +101,17 @@ MyG4Args :: MyG4Args(int mainargc,char** mainargv)
                     LYSOProps[2] = atof(mainargv[j+1]);
                     G4cout<< " ### Storing Tree Detected" <<G4endl;         
                 }
-                else if(strcmp(mainargv[j],"-Arrivals")==0)
+                else if(strcmp(mainargv[j],"-RT1")==0)
+                {   
+                    LYSOProps[2] = atof(mainargv[j+1]);
+                    G4cout<< " ### Storing Tree Detected" <<G4endl;         
+                }
+                else if(strcmp(mainargv[j],"-SigmaA")==0)
+                {   
+                    SigmaA = atof(mainargv[j+1]);
+                    G4cout<< " ### Value of microfacets: SigmaA" <<G4endl;         
+                }
+                                else if(strcmp(mainargv[j],"-Arrivals")==0)
                 {   
                     MainTrees[0] = 1;
                     G4cout<< " ### Storing Tree Detected" <<G4endl;         
@@ -214,6 +224,11 @@ MyG4Args :: MyG4Args(int mainargc,char** mainargv)
                     RESIN_Z = atof(mainargv[j+1]);j=j+1;
                     G4cout<< " ### RESIN_Z modified to :"<< RESIN_Z*2 <<G4endl;         
                 }     
+                else if(strcmp(mainargv[j],"-Ip")==0)
+                {   
+                    Ip = atof(mainargv[j+1]);j=j+1;
+                    G4cout<< " ### Ip :"<< Ip <<G4endl;         
+                }    
                 else if(strcmp(mainargv[j],"-RESIN_Z1000")==0)
                 {   
                     RESIN_Z = atof(mainargv[j+1])/1000;j=j+1;
