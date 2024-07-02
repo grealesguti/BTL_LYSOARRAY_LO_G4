@@ -127,6 +127,7 @@ public:
     G4int GetGmshView() const {return GmshView;}	// If == 1 forces a gmsh visualization rather than a G4 visualization of the LYSO geom
     G4int GetOnode() const {return Onode;}
     G4double GetSigmaA() const {return SigmaA;}
+    G4double GetSigmaAGlue() const {return SigmaAGlue;}
 
    
     // Double construction property Getters: geometry dimensions
@@ -363,6 +364,7 @@ private:
     G4double PartDisplX=0; // Particle origin displacement in X at 0.5m in Y
     G4double PartAngle=0; // Angle of incidence of the particles
     G4double SigmaA=0.000001; // Angle of incidence of the particles
+    G4double SigmaAGlue=0.000001; // Angle of incidence of the particles
 
     
     G4int rndangle=0; // random impacting angle?

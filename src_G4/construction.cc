@@ -438,6 +438,7 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
 			solidLYSO = new G4UnionSolid("solidLYSO", trapLYSO1, trapLYSO2, transformTrap); 
 		solidGlue = new G4Box("solidGlue", RESIN_W*mm, RESIN_H*mm+0.2*mm*G4UniformRand(), GLUE_L*mm);
 		}else if (GeomConfig==11){ // Geometry with a single bar constructed by Gmsh (makes a tile through -TileV0)
+						// Create the optical surface
 			G4cout <<"Get LYSO Volume:: " <<ArgsPass->GetVolume() << G4endl;
 			G4cout <<"Gmsh::" << G4endl;
 			GCgmsh = new GmshLYSO(ArgsPass); // Initialize GmshLYSO constructor class
@@ -446,7 +447,17 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
 			if(ArgsPass->GetESRTrue()==1){ // Add reflector to air?
 				G4cout <<"Coating G4Tet::" << G4endl;
 				GCgmsh->SurfaceCoating(physWorld, mirrorSurface);
-			}
+			} else{
+				
+				G4OpticalSurface* LYSOSurface = new G4OpticalSurface("LYSOSurface");
+				// Set the sigmaalpha value (20 degrees converted to radians)
+				LYSOSurface->SetSigmaAlpha(ArgsPass->GetSigmaA());
+				// Set other properties
+				LYSOSurface->SetType(dielectric_dielectric);
+				LYSOSurface->SetModel(unified);
+				GCgmsh->SurfaceCoating(physWorld, LYSOSurface);
+				}
+			
 			fScoringVolumeVec = GCgmsh->GetScoringVolumeVec(); // define scoring volume 
 			G4cout <<"Get LYSO Volume:: " <<ArgsPass->GetVolume() << G4endl; // get LYSO volume
 
@@ -478,6 +489,15 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
 					Glue_Sub =new G4SubtractionSolid("solidGlue0", solidGlue, box, tr);
 				}
 			}
+						G4OpticalSurface* GlueSurface = new G4OpticalSurface("GlueSurface");
+			// Set the sigmaalpha value (20 degrees converted to radians)
+			GlueSurface->SetSigmaAlpha(ArgsPass->GetSigmaAGlue());
+			// Set other properties
+			GlueSurface->SetType(dielectric_dielectric);
+			GlueSurface->SetModel(unified);
+			GCgmsh->SurfaceCoating(physGlue1, GlueSurface);
+			GCgmsh->SurfaceCoating(physGlue2, GlueSurface);			
+			
 			G4cout<< " ### LYSO solids. " <<G4endl;         
 		if (GeomConfig==13){ // not under use
 			solidResin = new G4Box("solidResin", LYSO_thick*8*2*mm+0.2*7*mm+0.2, RESIN_H*mm, RESIN_L*mm+DET_L*mm);

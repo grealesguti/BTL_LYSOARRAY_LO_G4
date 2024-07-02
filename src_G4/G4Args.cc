@@ -111,6 +111,11 @@ MyG4Args :: MyG4Args(int mainargc,char** mainargv)
                     SigmaA = atof(mainargv[j+1]);
                     G4cout<< " ### Value of microfacets: SigmaA" <<G4endl;         
                 }
+                else if(strcmp(mainargv[j],"-SigmaAGlue")==0)
+                {   
+                    SigmaAGlue = atof(mainargv[j+1]);
+                    G4cout<< " ### Value of microfacets: SigmaA" <<G4endl;         
+                }                
                                 else if(strcmp(mainargv[j],"-Arrivals")==0)
                 {   
                     MainTrees[0] = 1;
