@@ -82,6 +82,7 @@ public:
     // -> Set to zero at the begining of run.cc or event.cc to avoid numerical issues or bad counts
     // -> or, define default dimensions
     void InitAllCount(){APwlen=0;TPwlen=0; ArgArrival=0; ArgLO = 0;ArgCrossTalk = 0;TotPh = 0;PhHit=0;Edep=0.;MuonEdep=0.;nPhotL=0;nPhotR=0;PhotTiming[1]=0.;MuonLYSOTrackLength=0.;} // Initialize counters (Energy deposition, photon impacts ... ) to zero for each run
+
     void InitTotPh(){TotPh = 0;}
     void InitLO(){ArgLO = 0;}
     void InitCT(){ArgCrossTalk = 0;}
@@ -125,6 +126,7 @@ public:
     G4int GetYstr() const {return Ystr;}			// Returns the value for each input node for the LYSO creation
     G4int GetGmshView() const {return GmshView;}	// If == 1 forces a gmsh visualization rather than a G4 visualization of the LYSO geom
     G4int GetOnode() const {return Onode;}
+    G4double GetSigmaA() const {return SigmaA;}
 
    
     // Double construction property Getters: geometry dimensions
@@ -213,6 +215,7 @@ public:
 	G4double GetTPwlen() const {return TPwlen;}
 	G4double GetAPwlen() const {return APwlen;}
 
+
     // Double space exploration Getters: helped in the design exploration of the bar configurations
     G4double GetIncr() const {return incr;} // Test: [incr] forces an increase of thickness in the middle of the crystal equal to incr*3mm
     G4double GetIncrS() const {return incrS;} // Test: [incrS] forces an increase of thickness in the edge of the crystal equal to incr*3mm
@@ -235,6 +238,7 @@ public:
     void AddTP(){TotPh += 1;}
     void AddTPwlen(G4double wlenph){TPwlen+= wlenph;}
     void AddAPwlen(G4double wlenph1){APwlen+= wlenph1;}
+
 
     void AddPhotR(){nPhotR += 1;}	// +1 photon hit in a SiPM in positive Z location
     void AddPhotL(){nPhotL += 1;}    // +1 photon hit in a SiPM in negative Z location
@@ -309,6 +313,7 @@ private:
     G4double TPwlen=0;
     G4double APwlen=0;
 
+
     G4int ArgLO=0;
     G4int ArgArrival=0;
     G4int ArgCrossTalk=0;
@@ -357,6 +362,9 @@ private:
     G4double PartDir[3];
     G4double PartDisplX=0; // Particle origin displacement in X at 0.5m in Y
     G4double PartAngle=0; // Angle of incidence of the particles
+    G4double SigmaA=0.000001; // Angle of incidence of the particles
+
+    
     G4int rndangle=0; // random impacting angle?
     G4int SaveSTL=0;
     G4int scint=1;
